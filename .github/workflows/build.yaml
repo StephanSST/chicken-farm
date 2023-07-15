@@ -17,10 +17,10 @@ jobs:
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots package
 
-  docker:
-    runs-on: ubuntu-latest
+#  docker:
+#    runs-on: ubuntu-latest
 
-    steps:
+ #   steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
