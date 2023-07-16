@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM arm32v7/openjdk:11-jdk
 
 EXPOSE 8080
 WORKDIR /app
