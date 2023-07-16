@@ -22,6 +22,7 @@ jobs:
         with:
           image: stephanst/chicken-farm
           tags: v1, latest
+          platform: linux/arm/v7
           registry: docker.io
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKERHUB_USERNAME }}
