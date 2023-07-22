@@ -8,12 +8,17 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 ### Epic v1: Chicken scale recognizes weight change and sends message about state (which chicken, an egg) via Whatsapp
 
-* Story 1: (done) create Webservice GET base
-* Story 2: (done) using Github Actions to automatic build and create an image
-* Story 3: install current Docker image on Raspberry PI and start it initially
-* Story 4: read data from scale and show by webservice (GET)
-* Story 5: permanently call scale to get current weight and calculate the state
-* Story 6: integrate Whatsapp
+* Story: (done) create Webservice GET base
+* Story: (done) using Github Actions to automatic build and create an image
+* Story: (done) install current Docker image on Raspberry PI and start it initially
+* Story: (done) create structure with timer service pulling dummy scale service and show data via GET service
+
+* Story: create scale service that delivers current weight
+
+* Story: get current weight and calculate the "state" (chicken, egg)
+* Story: integrate Whatsapp and send messages
+* Story: manage chickens
+* Story: read data from scale and show by webservice (GET)
 
 
 
