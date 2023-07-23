@@ -1,7 +1,5 @@
 package ch.stephan.chickenfarm.scale;
 
-import java.io.IOException;
-
 import com.tinkerforge.AlreadyConnectedException;
 import com.tinkerforge.BrickletLoadCellV2;
 import com.tinkerforge.IPConnection;
@@ -25,15 +23,12 @@ public class ExampleSimple {
 			System.out.println("Weight: " + weight + " g");
 
 			ipConn.disconnect();
-			ipConn.close();
 
 		} catch (AlreadyConnectedException ex) {
 			ex.printStackTrace();
 		} catch (NetworkException ex) {
 			ex.printStackTrace();
 		} catch (TinkerforgeException ex) {
-			ex.printStackTrace();
-		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 
@@ -72,15 +67,12 @@ public class ExampleSimple {
 			ipConn.enumerate();
 
 			ipConn.disconnect();
-			ipConn.close();
 
 		} catch (AlreadyConnectedException ex) {
 			ex.printStackTrace();
 		} catch (NetworkException ex) {
 			ex.printStackTrace();
 		} catch (TinkerforgeException ex) {
-			ex.printStackTrace();
-		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 	}
