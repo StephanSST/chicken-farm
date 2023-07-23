@@ -63,6 +63,7 @@ public class ScaleService {
 			});
 
 			ipConnection.enumerate();
+			System.out.println("Broadcast sent to all connected components");
 
 		} catch (TinkerforgeException ex) {
 			ex.printStackTrace();
