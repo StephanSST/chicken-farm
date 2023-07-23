@@ -19,9 +19,6 @@ jobs:
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots package
 
-      - name: Copy artifact
-        run: mkdir staging && cp target/*.jar staging
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
@@ -37,6 +34,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
+          context: .
           platforms: linux/arm/v7 
           push: true
           tags: stephanst/chicken-farm:latest
