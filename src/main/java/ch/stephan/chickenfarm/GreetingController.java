@@ -28,10 +28,4 @@ public class GreetingController {
 		return new Greeting(box, String.format(measure, box, scaleService.measureWeight(box)));
 	}
 
-	@GetMapping("/discovery")
-	public Greeting discovery() {
-		scaleService.discovery();
-		return new Greeting(counter.incrementAndGet(), "discovey in log");
-	}
-
 }
