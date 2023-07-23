@@ -1,8 +1,6 @@
 package ch.stephan.chickenfarm.scale;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -41,27 +39,6 @@ public class ScaleService {
 
 	public void discovery() {
 		try {
-			ipConnection.addEnumerateListener(new IPConnection.EnumerateListener() {
-				@Override
-				public void enumerate(String uid, String connectedUid, char position, short[] hardwareVersion,
-						short[] firmwareVersion, int deviceIdentifier, short enumerationType) {
-					System.out.println("UID:               " + uid);
-					System.out.println("Enumeration Type:  " + enumerationType);
-
-					if (enumerationType == IPConnection.ENUMERATION_TYPE_DISCONNECTED) {
-						System.out.println("2 - IPConnection.ENUMERATION_TYPE_DISCONNECTED");
-						return;
-					}
-
-					System.out.println("Connected UID:     " + connectedUid);
-					System.out.println("Position:          " + position);
-					System.out.println("Hardware Version:  " + asString(hardwareVersion));
-					System.out.println("Firmware Version:  " + asString(firmwareVersion));
-					System.out.println("Device Identifier: " + deviceIdentifier);
-					System.out.println("");
-				}
-			});
-
 			ipConnection.enumerate();
 			System.out.println("Broadcast sent to all connected components");
 
@@ -70,15 +47,12 @@ public class ScaleService {
 		}
 	}
 
-	private String asString(short[] version) {
-		return Arrays.asList(version).stream().map(n -> n.toString()).collect(Collectors.joining("."));
-	}
-
 	@PostConstruct
 	public void initIPConnection() {
 		try {
 			ipConnection = new IPConnection();
 			ipConnection.connect(HOST, PORT);
+			ipConnection.addEnumerateListener(new EnumerateListenerImpl());
 		} catch (AlreadyConnectedException ex) {
 			ex.printStackTrace();
 		} catch (NetworkException ex) {
@@ -96,6 +70,32 @@ public class ScaleService {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	private final class EnumerateListenerImpl implements IPConnection.EnumerateListener {
+		@Override
+		public void enumerate(String uid, String connectedUid, char position, short[] hardwareVersion,
+				short[] firmwareVersion, int deviceIdentifier, short enumerationType) {
+			System.out.println("UID:               " + uid);
+			System.out.println("Enumeration Type:  " + enumerationType);
+
+			if (enumerationType == IPConnection.ENUMERATION_TYPE_DISCONNECTED) {
+				System.out.println("2 - IPConnection.ENUMERATION_TYPE_DISCONNECTED");
+				return;
+			}
+
+			System.out.println("Connected UID:     " + connectedUid);
+			System.out.println("Position:          " + position);
+			System.out.println("Hardware Version:  " + asString(hardwareVersion));
+			System.out.println("Firmware Version:  " + asString(firmwareVersion));
+			System.out.println("Device Identifier: " + deviceIdentifier);
+			System.out.println("");
+		}
+
+		private String asString(short[] version) {
+			return version[0] + "." + version[1] + "." + version[2];
+		}
+
 	}
 
 }
