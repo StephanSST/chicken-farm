@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.stephan.chickenfarm.scale.ExampleSimple;
 import ch.stephan.chickenfarm.scale.ScaleService;
 
 @RestController
@@ -31,7 +30,7 @@ public class GreetingController {
 
 	@GetMapping("/discovery")
 	public Greeting discovery() {
-		ExampleSimple.discovery();
+		scaleService.discovery();
 		return new Greeting(counter.incrementAndGet(), "discovey in log");
 	}
 
