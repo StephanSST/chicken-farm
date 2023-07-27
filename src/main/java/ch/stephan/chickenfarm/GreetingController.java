@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.stephan.chickenfarm.dto.Greeting;
 import ch.stephan.chickenfarm.scale.ScaleService;
 
 @RestController

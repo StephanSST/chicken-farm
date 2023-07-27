@@ -2,9 +2,7 @@ package ch.stephan.chickenfarm.scale;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -15,6 +13,7 @@ import com.tinkerforge.NetworkException;
 import com.tinkerforge.NotConnectedException;
 import com.tinkerforge.TinkerforgeException;
 
+import ch.stephan.chickenfarm.dto.Discovery;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
@@ -26,7 +25,7 @@ public class ScaleService {
 	private static final String UID = "ZUw";
 
 	private IPConnection ipConnection;
-	private Map<String, List<String>> discoveryResult = new HashMap<>();
+	private List<Discovery> discoveryResult = new ArrayList<>();
 
 	public int measureWeight(int box) {
 		int weight = -1;
@@ -42,7 +41,22 @@ public class ScaleService {
 		return weight;
 	}
 
-	public Map<String, List<String>> discovery() {
+	public String calibrate(int box) {
+		try {
+			BrickletLoadCellV2 loadCell = new BrickletLoadCellV2(UID, ipConnection);
+			int before = loadCell.getWeight();
+			loadCell.calibrate(before);
+			int after = loadCell.getWeight();
+			System.out.println("Scale was recalibrated. Before: " + before + " g - after: " + after + " g");
+
+		} catch (TinkerforgeException ex) {
+			ex.printStackTrace();
+		}
+
+		return "successfully calibrated";
+	}
+
+	public List<Discovery> discovery() {
 		try {
 			ipConnection.enumerate();
 			System.out.println("Broadcast sent to all connected components");
@@ -89,20 +103,9 @@ public class ScaleService {
 		public void enumerate(String uid, String connectedUid, char position, short[] hardwareVersion,
 				short[] firmwareVersion, int deviceIdentifier, short enumerationType) {
 
-			List<String> result = new ArrayList<String>();
-			result.add("UID:               " + uid);
-			result.add("Enumeration Type:  " + enumerationType);
-
-			if (enumerationType != IPConnection.ENUMERATION_TYPE_DISCONNECTED) {
-				result.add("Connected UID:     " + connectedUid);
-				result.add("Position:          " + position);
-				result.add("Hardware Version:  " + asString(hardwareVersion));
-				result.add("Firmware Version:  " + asString(firmwareVersion));
-				result.add("Device Identifier: " + deviceIdentifier);
-			}
-			result.add("");
-
-			discoveryResult.put(uid, result);
+			Discovery discovery = new Discovery(uid, connectedUid, position, asString(hardwareVersion),
+					asString(firmwareVersion), deviceIdentifier, enumerationType);
+			discoveryResult.add(discovery);
 		}
 
 		private String asString(short[] version) {
