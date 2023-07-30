@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.tinkerforge.AlreadyConnectedException;
+import com.tinkerforge.BrickHAT;
 import com.tinkerforge.BrickletLoadCellV2;
 import com.tinkerforge.IPConnection;
 import com.tinkerforge.NetworkException;
@@ -103,13 +104,38 @@ public class ScaleService {
 		public void enumerate(String uid, String connectedUid, char position, short[] hardwareVersion,
 				short[] firmwareVersion, int deviceIdentifier, short enumerationType) {
 
-			Discovery discovery = new Discovery(uid, connectedUid, position, asString(hardwareVersion),
-					asString(firmwareVersion), deviceIdentifier, enumerationType);
+			Discovery discovery = new Discovery(uid, connectedUid, Character.toString(position),
+					asString(hardwareVersion), asString(firmwareVersion), deviceAsString(deviceIdentifier),
+					enumAsString(enumerationType));
 			discoveryResult.add(discovery);
 		}
 
 		private String asString(short[] version) {
 			return version[0] + "." + version[1] + "." + version[2];
+		}
+
+		private String enumAsString(short enumerationType) {
+			switch (enumerationType) {
+			case IPConnection.ENUMERATION_TYPE_AVAILABLE:
+				return "AVAILABLE";
+			case IPConnection.ENUMERATION_TYPE_CONNECTED:
+				return "CONNECTED";
+			case IPConnection.ENUMERATION_TYPE_DISCONNECTED:
+				return "DISCONNECTED";
+			default:
+				return "UNKNOWN";
+			}
+		}
+
+		private String deviceAsString(int deviceIdentifier) {
+			switch (deviceIdentifier) {
+			case BrickletLoadCellV2.DEVICE_IDENTIFIER:
+				return "Load Cell V2 Bricklet";
+			case BrickHAT.DEVICE_IDENTIFIER:
+				return "HAT Brick";
+			default:
+				return String.valueOf(deviceIdentifier);
+			}
 		}
 
 	}

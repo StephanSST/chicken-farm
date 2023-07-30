@@ -14,7 +14,7 @@ ExecStart=/usr/bin/docker run -d --restart unless-stopped \
   -p 8080:8080 --network="host" \
   --name chicken-farm stephanst/chicken-farm:latest
 ExecStop=/usr/bin/docker stop chicken-farm
-TimeoutSec=120
+TimeoutSec=300
 
 [Install]
 WantedBy=multi-user.target
