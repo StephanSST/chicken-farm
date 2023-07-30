@@ -104,9 +104,9 @@ public class ScaleService {
 		public void enumerate(String uid, String connectedUid, char position, short[] hardwareVersion,
 				short[] firmwareVersion, int deviceIdentifier, short enumerationType) {
 
-			Discovery discovery = new Discovery(uid, connectedUid, Character.toString(position),
-					asString(hardwareVersion), asString(firmwareVersion), deviceAsString(deviceIdentifier),
-					enumAsString(enumerationType));
+			Discovery discovery = new Discovery(deviceAsString(deviceIdentifier), uid, connectedUid,
+					Character.toString(position), enumAsString(enumerationType), asString(hardwareVersion),
+					asString(firmwareVersion));
 			discoveryResult.add(discovery);
 		}
 

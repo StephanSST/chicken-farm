@@ -8,13 +8,13 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 ### Epic v1: Chicken scale recognizes weight change and sends message about state (which chicken, an egg) via Whatsapp
 
-* Story: write tests and mock for scale service
-* Story: respect box/UID of load cell
-* Story: Integration test with whole process
+* Story: write tests and mock for scale service (testing)
+* Story: Integration test with whole process (testing)
 
+* Story: respect box/UID of load cell
+* Story: read data from scale and show by webservice (GET)
 * Story: get current weight and calculate the "state" (chicken, egg)
 * Story: integrate Whatsapp and send messages
-* Story: read data from scale and show by webservice (GET)
 
 
 * Story: (done) change discovery webservice to use DO instead of strings
