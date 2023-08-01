@@ -36,7 +36,7 @@ public class ScaleService {
 		try {
 			BrickletLoadCellV2 loadCell = new BrickletLoadCellV2(uid, ipConnection);
 			weight = loadCell.getWeight();
-			log.info("Weight: " + weight + " g");
+			log.info("Scale {} has weight {}g.", uid, weight);
 
 		} catch (TinkerforgeException ex) {
 			ex.printStackTrace();
@@ -51,7 +51,7 @@ public class ScaleService {
 			int before = loadCell.getWeight();
 			loadCell.calibrate(before);
 			int after = loadCell.getWeight();
-			log.info("Scale was recalibrated. Before: " + before + " g - after: " + after + " g");
+			log.info("Scale {} was recalibrated. Before: {}g - after: {}g.", uid, before, after);
 
 		} catch (TinkerforgeException ex) {
 			ex.printStackTrace();

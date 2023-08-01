@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import ch.stephan.chickenfarm.messenger.MessengerService;
@@ -26,7 +25,7 @@ public class ScaleObserver {
 	@Autowired
 	private MessengerService whatsappService;
 
-	@Scheduled(fixedRate = 10000)
+//	@Scheduled(fixedRate = 10000)
 	public void measureWeights() {
 		String uid = "23yp";
 		int weight = scaleService.measureWeight(uid);
@@ -44,7 +43,7 @@ public class ScaleObserver {
 			whatsappService.sendNotification(message);
 
 		} else { // nothing special
-			log.info("Box {} with weight {}g at {}", weight, dateFormat.format(new Date()));
+			log.info("Box {} with weight {}g at {}", uid, weight, dateFormat.format(new Date()));
 		}
 
 	}
