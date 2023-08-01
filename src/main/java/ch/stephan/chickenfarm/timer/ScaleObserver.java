@@ -5,9 +5,11 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.MessageFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import ch.stephan.chickenfarm.messenger.MessengerService;
 import ch.stephan.chickenfarm.scale.ScaleService;
 
 @Component
@@ -20,10 +22,30 @@ public class ScaleObserver {
 	@Autowired
 	private ScaleService scaleService;
 
+	@Autowired
+	private MessengerService whatsappService;
+
 //	@Scheduled(fixedRate = 5000)
 	public void measureWeights() {
-		int weight = scaleService.measureWeight(1);
-		log.info("Weight {}g at {}", weight, dateFormat.format(new Date()));
+		String uid = "ZUw";
+		int weight = scaleService.measureWeight(uid);
+
+		if (weight > 1000) { // chicken in the box
+			String message = MessageFormatter
+					.format("Ein Huhn sitzt in der Legebox {} und ist {}g schwer.", uid, weight).getMessage();
+			log.info(message);
+			whatsappService.sendNotification(message);
+
+		} else if (weight > 50) { // egg in the box
+			String message = MessageFormatter.format("Huhn in der Legebox {} hat ein Ei von {}g gelegt.", uid, weight)
+					.getMessage();
+			log.info(message);
+			whatsappService.sendNotification(message);
+
+		} else { // nothing special
+			log.info("Box {} with weight {}g at {}", weight, dateFormat.format(new Date()));
+		}
+
 	}
 
 }

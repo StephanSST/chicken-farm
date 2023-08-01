@@ -1,4 +1,4 @@
-package ch.stephan.chickenfarm;
+package ch.stephan.chickenfarm.services;
 
 import java.util.List;
 

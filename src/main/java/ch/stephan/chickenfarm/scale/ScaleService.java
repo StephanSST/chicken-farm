@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.tinkerforge.AlreadyConnectedException;
@@ -23,17 +25,18 @@ public class ScaleService {
 
 	private static final String HOST = "localhost";
 	private static final int PORT = 4223;
-	private static final String UID = "ZUw";
+
+	private static final Logger log = LoggerFactory.getLogger(ScaleService.class);
 
 	private IPConnection ipConnection;
 	private List<Discovery> discoveryResult = new ArrayList<>();
 
-	public int measureWeight(int box) {
+	public int measureWeight(String uid) {
 		int weight = -1;
 		try {
-			BrickletLoadCellV2 loadCell = new BrickletLoadCellV2(UID, ipConnection);
+			BrickletLoadCellV2 loadCell = new BrickletLoadCellV2(uid, ipConnection);
 			weight = loadCell.getWeight();
-			System.out.println("Weight: " + weight + " g");
+			log.info("Weight: " + weight + " g");
 
 		} catch (TinkerforgeException ex) {
 			ex.printStackTrace();
@@ -42,13 +45,13 @@ public class ScaleService {
 		return weight;
 	}
 
-	public String calibrate(int box) {
+	public String calibrate(String uid) {
 		try {
-			BrickletLoadCellV2 loadCell = new BrickletLoadCellV2(UID, ipConnection);
+			BrickletLoadCellV2 loadCell = new BrickletLoadCellV2(uid, ipConnection);
 			int before = loadCell.getWeight();
 			loadCell.calibrate(before);
 			int after = loadCell.getWeight();
-			System.out.println("Scale was recalibrated. Before: " + before + " g - after: " + after + " g");
+			log.info("Scale was recalibrated. Before: " + before + " g - after: " + after + " g");
 
 		} catch (TinkerforgeException ex) {
 			ex.printStackTrace();
@@ -60,7 +63,7 @@ public class ScaleService {
 	public List<Discovery> discovery() {
 		try {
 			ipConnection.enumerate();
-			System.out.println("Broadcast sent to all connected components");
+			log.info("Broadcast sent to all connected components");
 
 			try {
 				Thread.sleep(1000);
