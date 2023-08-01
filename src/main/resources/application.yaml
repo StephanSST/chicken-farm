@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: chicken-farm
+
+messengerservice:
+  from: ${THREEMA_FROM}
+  to: ${THREEMA_TO}
+  secret: ${THREEMA_SECRET}

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,11 +19,17 @@ public class MessengerService {
 	private static final Logger log = LoggerFactory.getLogger(MessengerService.class);
 
 	private static final String URL = "https://msgapi.threema.ch/send_simple?to={to}&text={text}&from={from}&secret={secret}";
-	private static final String FROM = System.getenv("THREEMA_FROM");
-	private static final String TO = System.getenv("THREEMA_TO");
-	private static final String SECRET = System.getenv("THREEMA_SECRET");
 
 	private final RestTemplate restTemplate;
+
+	@Value("${messengerservice.from}")
+	private String from;
+
+	@Value("${messengerservice.to}")
+	private String to;
+
+	@Value("${messengerservice.secret}")
+	private String secret;
 
 	public MessengerService(RestTemplateBuilder restTemplateBuilder) {
 		this.restTemplate = restTemplateBuilder.build();
@@ -35,10 +42,10 @@ public class MessengerService {
 			HttpEntity<?> httpEntity = new HttpEntity<>(headers);
 
 			Map<String, String> params = new HashMap<>();
-			params.put("to", TO);
+			params.put("to", to);
 			params.put("text", message);
-			params.put("from", FROM);
-			params.put("secret", SECRET);
+			params.put("from", from);
+			params.put("secret", secret);
 
 			String messageId = restTemplate.postForObject(URL, httpEntity, String.class, params);
 
