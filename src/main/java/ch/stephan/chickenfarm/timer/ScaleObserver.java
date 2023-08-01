@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import ch.stephan.chickenfarm.messenger.MessengerService;
@@ -25,9 +26,9 @@ public class ScaleObserver {
 	@Autowired
 	private MessengerService whatsappService;
 
-//	@Scheduled(fixedRate = 5000)
+	@Scheduled(fixedRate = 10000)
 	public void measureWeights() {
-		String uid = "ZUw";
+		String uid = "23yp";
 		int weight = scaleService.measureWeight(uid);
 
 		if (weight > 1000) { // chicken in the box
