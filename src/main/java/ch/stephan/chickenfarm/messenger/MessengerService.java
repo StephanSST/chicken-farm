@@ -31,7 +31,7 @@ public class MessengerService {
 	@Value("${messengerservice.secret}")
 	private String secret;
 
-	@Value("${messengerservice.enabled:false}")
+	@Value("${messengerservice.enabled}")
 	private boolean enabled;
 
 	public MessengerService(RestTemplateBuilder restTemplateBuilder) {

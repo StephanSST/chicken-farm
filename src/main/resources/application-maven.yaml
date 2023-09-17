@@ -3,7 +3,7 @@ spring:
     name: chicken-farm
 
 messengerservice:
-  from: ${THREEMA_FROM}
-  to: ${THREEMA_TO}
-  secret: ${THREEMA_SECRET}
+  from: "dummy"
+  to: "dummy"
+  secret: "dummy"
   enabled: false
