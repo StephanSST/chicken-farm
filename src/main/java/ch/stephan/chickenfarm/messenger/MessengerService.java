@@ -31,11 +31,18 @@ public class MessengerService {
 	@Value("${messengerservice.secret}")
 	private String secret;
 
+	@Value("${messengerservice.enabled:false}")
+	private boolean enabled;
+
 	public MessengerService(RestTemplateBuilder restTemplateBuilder) {
 		this.restTemplate = restTemplateBuilder.build();
 	}
 
 	public String sendNotification(String message) {
+		if (!enabled) {
+			return "Messaging was disabled, not message sent.";
+		}
+
 		try {
 			HttpHeaders headers = new HttpHeaders();
 			headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_FORM_URLENCODED_VALUE);

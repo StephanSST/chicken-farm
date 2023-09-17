@@ -23,7 +23,7 @@ public class ScaleObserver {
 	private ScaleService scaleService;
 
 	@Autowired
-	private MessengerService whatsappService;
+	private MessengerService messengerService;
 
 //	@Scheduled(fixedRate = 10000)
 	public void measureWeights() {
@@ -34,13 +34,15 @@ public class ScaleObserver {
 			String message = MessageFormatter
 					.format("Ein Huhn sitzt in der Legebox {} und ist {}g schwer.", uid, weight).getMessage();
 			log.info(message);
-			whatsappService.sendNotification(message);
+			String result = messengerService.sendNotification(message);
+			log.info("Message sent: {}", result);
 
 		} else if (weight > 50) { // egg in the box
 			String message = MessageFormatter.format("Huhn in der Legebox {} hat ein Ei von {}g gelegt.", uid, weight)
 					.getMessage();
 			log.info(message);
-			whatsappService.sendNotification(message);
+			String result = messengerService.sendNotification(message);
+			log.info("Message sent: {}", result);
 
 		} else { // nothing special
 			log.info("Box {} with weight {}g at {}", uid, weight, dateFormat.format(new Date()));
