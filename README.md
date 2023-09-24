@@ -8,6 +8,12 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 ### Epic v1: Chicken scale recognizes weight change and sends message about state (which chicken, an egg) via Messenger
 
+* Tests with slack
+* Enabled as parameter and set in start script
+* Fix java stream
+* Kalibrieren der Wage mit Windows
+
+* Story: respect both boxes
 * Story: write tests and mock for scale service (testing)
 * Story: Integration test with whole process (testing)
 * Story: using Lombok to log

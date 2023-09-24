@@ -31,6 +31,15 @@ public class ScaleService {
 	private IPConnection ipConnection;
 	private List<Discovery> discoveryResult = new ArrayList<>();
 
+	public ScaleService() {
+		super();
+	}
+
+	public ScaleService(IPConnection ipConnection) {
+		super();
+		this.ipConnection = ipConnection;
+	}
+
 	public int measureWeight(String uid) {
 		int weight = -1;
 		try {
