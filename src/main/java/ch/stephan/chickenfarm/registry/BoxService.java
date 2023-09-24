@@ -11,7 +11,7 @@ import jakarta.annotation.PostConstruct;
 @Service
 public class BoxService {
 
-	private static List<Box> sBoxes;
+	private static List<Box> sBoxes = null;
 
 	public BoxService() {
 		super();

@@ -8,8 +8,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.UUID;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -27,9 +25,12 @@ import ch.stephan.chickenfarm.scale.ScaleService;
 @WebMvcTest(value = MeasureController.class)
 class MeasureControllerTest {
 
+	private static final String MESSAGE_TEXT = "Huhn hat ein Ei gelegt";
 	private static final String CALIBRATION_RESULT = "successfully calibrated";
-	private static final String UID = UUID.randomUUID().toString();
-	private static final int CURRENT_WEIGHT = 666;
+	private static final String UID1 = "23yp";
+	private static final String UID2 = "ZUw";
+	private static final int CURRENT_WEIGHT1 = 666;
+	private static final int CURRENT_WEIGHT2 = 667;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -45,9 +46,10 @@ class MeasureControllerTest {
 
 	@Test
     void testMeasure() throws Exception {
-        when(scaleService.measureWeight(eq(UID))).thenReturn(CURRENT_WEIGHT);
+        when(scaleService.measureWeight(eq(UID1))).thenReturn(CURRENT_WEIGHT1);
+        when(scaleService.measureWeight(eq(UID2))).thenReturn(CURRENT_WEIGHT2);
 
-        String mockMvcResult = mockMvc.perform(get("/measure").queryParam("uid", UID).contentType(MediaType.APPLICATION_JSON))//
+        String mockMvcResult = mockMvc.perform(get("/measure").contentType(MediaType.APPLICATION_JSON))//
                 .andExpect(status().isOk())//
                 .andReturn()//
                 .getResponse()//
@@ -56,14 +58,14 @@ class MeasureControllerTest {
         Message message = objectMapper.readValue(mockMvcResult, new TypeReference<>() {});
 
         assertNotNull(message);
-        assertThat(message.content()).isEqualTo(String.format("Weight of box %s is %s.", UID, CURRENT_WEIGHT));
+        assertThat(message.content()).isEqualTo("Weight of box 23yp (hinten) is 666., Weight of box ZUw (vorne) is 667.");
     }
 
 	@Test
     void testSend() throws Exception {
         when(messengerService.sendNotification(anyString())).thenAnswer(i -> i.getArguments()[0]);
         
-        String mockMvcResult = mockMvc.perform(get("/send").contentType(MediaType.APPLICATION_JSON))//
+        String mockMvcResult = mockMvc.perform(get("/send").queryParam("text", MESSAGE_TEXT).contentType(MediaType.APPLICATION_JSON))//
                 .andExpect(status().isOk())//
                 .andReturn()//
                 .getResponse()//
@@ -72,14 +74,14 @@ class MeasureControllerTest {
         Message message = objectMapper.readValue(mockMvcResult, new TypeReference<>() {});
         
         assertNotNull(message);
-        assertThat(message.content()).isEqualTo("Huhn hat ein Ei gelegt");
+        assertThat(message.content()).isEqualTo(MESSAGE_TEXT);
     }
 
 	@Test
     void testCalibrate() throws Exception {
-        when(scaleService.calibrate(eq(UID))).thenReturn(CALIBRATION_RESULT);
+        when(scaleService.calibrate(eq(UID1))).thenReturn(CALIBRATION_RESULT);
         
-        String mockMvcResult = mockMvc.perform(get("/calibrate").queryParam("uid", UID).contentType(MediaType.APPLICATION_JSON))//
+        String mockMvcResult = mockMvc.perform(get("/calibrate").queryParam("uid", UID1).contentType(MediaType.APPLICATION_JSON))//
                 .andExpect(status().isOk())//
                 .andReturn()//
                 .getResponse()//
@@ -88,7 +90,7 @@ class MeasureControllerTest {
         Message message = objectMapper.readValue(mockMvcResult, new TypeReference<>() {});
         
         assertNotNull(message);
-        assertThat(message.content()).isEqualTo(String.format("Calibrated box %s, result: %s.", UID, CALIBRATION_RESULT));
+        assertThat(message.content()).isEqualTo(String.format("Calibrated box %s, result: %s.", UID1, CALIBRATION_RESULT));
     }
 
 }

@@ -15,7 +15,7 @@ import ch.stephan.chickenfarm.scale.ScaleService;
 
 @RestController
 public class MeasureController {
-	private static final String MEASURE = "Weight of box %s is %s.";
+	private static final String MEASURE = "Weight of box %s (%s) is %s.";
 	private static final String CALIBRATE = "Calibrated box %s, result: %s.";
 
 	private final AtomicLong counter = new AtomicLong();
@@ -32,10 +32,10 @@ public class MeasureController {
 	@GetMapping("/measure")
 	public Message measure() {
 		String message = boxService.getBoxes().stream()//
-				.map(b -> b.id())//
-				.map(id -> scaleService.measureWeight(id))//
-				.map(m -> Integer.valueOf(m))//
-				.map(f -> String.format(MEASURE, "id", f))//
+				.map(b -> {
+					int weight = scaleService.measureWeight(b.id());
+					return String.format(MEASURE, b.id(), b.description(), weight);
+				})//
 				.collect(Collectors.joining(", "));
 		return new Message(counter.incrementAndGet(), message);
 	}
@@ -46,8 +46,8 @@ public class MeasureController {
 	}
 
 	@GetMapping("/send")
-	public Message send() {
-		String result = messengerService.sendNotification("Huhn hat ein Ei gelegt");
+	public Message send(@RequestParam(value = "text") String text) {
+		String result = messengerService.sendNotification(text);
 		return new Message(counter.incrementAndGet(), result);
 	}
 
