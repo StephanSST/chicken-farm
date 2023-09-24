@@ -12,7 +12,7 @@ ExecStartPre=-/usr/bin/docker rm chicken-farm
 ExecStartPre=-/usr/bin/docker pull stephanst/chicken-farm:latest
 ExecStart=/usr/bin/docker run -d --restart unless-stopped \
   -p 8080:8080 --network="host" \
-  --env THREEMA_FROM=xxxxx --env THREEMA_TO=xxxxx --env THREEMA_SECRET=xxxxx \
+  --env THREEMA_FROM=xxxxx --env THREEMA_TO=xxxxx --env THREEMA_SECRET=xxxxx --env MESSENGER_ENABLED=true --env SCHEDULER_FIXED_RATE=60000  \
   --name chicken-farm stephanst/chicken-farm:latest
 ExecStop=/usr/bin/docker stop chicken-farm
 TimeoutSec=300

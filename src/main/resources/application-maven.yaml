@@ -7,3 +7,6 @@ messengerservice:
   to: "dummy"
   secret: "dummy"
   enabled: false
+
+schedulerservice:
+  fixedRate: ${SCHEDULER_FIXED_RATE:60000}

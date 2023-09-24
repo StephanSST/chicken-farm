@@ -6,4 +6,7 @@ messengerservice:
   from: ${THREEMA_FROM:huehnerstall}
   to: ${THREEMA_TO:myself}
   secret: ${THREEMA_SECRET:joshua}
-  enabled: false
+  enabled: ${MESSENGER_ENABLED:false}
+
+schedulerservice:
+  fixedRate: ${SCHEDULER_FIXED_RATE:60000}
