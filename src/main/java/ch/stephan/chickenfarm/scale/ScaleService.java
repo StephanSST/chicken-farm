@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.tinkerforge.AlreadyConnectedException;
@@ -19,14 +17,14 @@ import com.tinkerforge.TinkerforgeException;
 import ch.stephan.chickenfarm.dto.Discovery;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class ScaleService {
 
 	private static final String HOST = "localhost";
 	private static final int PORT = 4223;
-
-	private static final Logger log = LoggerFactory.getLogger(ScaleService.class);
 
 	private IPConnection ipConnection;
 	private List<Discovery> discoveryResult;
