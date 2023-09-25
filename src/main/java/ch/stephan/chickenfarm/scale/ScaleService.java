@@ -29,7 +29,7 @@ public class ScaleService {
 	private static final Logger log = LoggerFactory.getLogger(ScaleService.class);
 
 	private IPConnection ipConnection;
-	private List<Discovery> discoveryResult = new ArrayList<>();
+	private List<Discovery> discoveryResult;
 
 	public ScaleService() {
 		super();
@@ -69,8 +69,23 @@ public class ScaleService {
 		return "successfully calibrated";
 	}
 
+	public String tare(String uid) {
+		try {
+			BrickletLoadCellV2 loadCell = new BrickletLoadCellV2(uid, ipConnection);
+			loadCell.tare();
+			log.info("Scale {} has been tared.", uid);
+
+		} catch (TinkerforgeException ex) {
+			ex.printStackTrace();
+		}
+
+		return "successfully tared";
+	}
+
 	public List<Discovery> discovery() {
 		try {
+			discoveryResult = new ArrayList<>();
+
 			ipConnection.enumerate();
 			log.info("Broadcast sent to all connected components");
 

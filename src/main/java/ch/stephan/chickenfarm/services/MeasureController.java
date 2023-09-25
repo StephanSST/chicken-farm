@@ -15,8 +15,12 @@ import ch.stephan.chickenfarm.scale.ScaleService;
 
 @RestController
 public class MeasureController {
-	private static final String MEASURE = "Weight of box %s (%s) is %s.";
+	private static final String POINT = ".";
+	private static final String COMMA = ", ";
+	private static final String EMPTY_STRING = "";
+	private static final String MEASURE = "Weight of box %s (%s) is %s";
 	private static final String CALIBRATE = "Calibrated box %s, result: %s.";
+	private static final String TARE = "Tared box %s, result: %s.";
 
 	private final AtomicLong counter = new AtomicLong();
 
@@ -36,13 +40,18 @@ public class MeasureController {
 					int weight = scaleService.measureWeight(b.id());
 					return String.format(MEASURE, b.id(), b.description(), weight);
 				})//
-				.collect(Collectors.joining(", "));
+				.collect(Collectors.joining(COMMA, EMPTY_STRING, POINT));
 		return new Message(counter.incrementAndGet(), message);
 	}
 
 	@GetMapping("/calibrate")
 	public Message calibrate(@RequestParam(value = "uid") String uid) {
 		return new Message(counter.incrementAndGet(), String.format(CALIBRATE, uid, scaleService.calibrate(uid)));
+	}
+
+	@GetMapping("/tare")
+	public Message tare(@RequestParam(value = "uid") String uid) {
+		return new Message(counter.incrementAndGet(), String.format(TARE, uid, scaleService.tare(uid)));
 	}
 
 	@GetMapping("/send")

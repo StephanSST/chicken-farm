@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import ch.stephan.chickenfarm.messenger.MessengerService;
+import ch.stephan.chickenfarm.registry.BoxService;
 import ch.stephan.chickenfarm.scale.ScaleService;
 
 @Component
@@ -21,6 +22,9 @@ public class ScaleObserver {
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
 	@Autowired
+	private BoxService boxService;
+
+	@Autowired
 	private ScaleService scaleService;
 
 	@Autowired
@@ -29,7 +33,11 @@ public class ScaleObserver {
 	@Scheduled(fixedRateString = "${schedulerservice.fixedRate}")
 
 	public void measureWeights() {
-		String uid = "23yp";
+		boxService.getBoxes().stream()//
+				.forEach(b -> measureWeightOfScale(b.id()));
+	}
+
+	private void measureWeightOfScale(String uid) {
 		int weight = scaleService.measureWeight(uid);
 
 		if (weight > 1000) { // chicken in the box

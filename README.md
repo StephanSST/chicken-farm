@@ -8,14 +8,14 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 ### Epic v1: Chicken scale recognizes weight change and sends message about state (which chicken, an egg) via Messenger
 
-* Story: respect both boxes in Schedule
-* Story: Integration test with whole process (testing)
-* Story: Check if Slack is better than Threema
 * Story: using Lombok to log
+* Story: Check if Slack is better than Threema
 * Story: switch to feign client
 * Story: fix disabled test
+* Story: Integration test with whole process (testing)
 
-* Story: ENV VAR for "enabled" and Schedule "fixedRate"
+* Story: (done) respect both boxes in Schedule
+* Story: (done) ENV VAR for "enabled" and Schedule "fixedRate"
 * Story: (done) write tests and mock for scale service (testing)
 * Story: (done) get current weight and calculate the "state" (chicken, egg)
 * Story: (done) env values via application.yaml

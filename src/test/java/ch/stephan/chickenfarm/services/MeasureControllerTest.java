@@ -58,7 +58,7 @@ class MeasureControllerTest {
         Message message = objectMapper.readValue(mockMvcResult, new TypeReference<>() {});
 
         assertNotNull(message);
-        assertThat(message.content()).isEqualTo("Weight of box 23yp (hinten) is 666., Weight of box ZUw (vorne) is 667.");
+        assertThat(message.content()).isEqualTo("Weight of box 23yp (hinten) is 666, Weight of box ZUw (vorne) is 667.");
     }
 
 	@Test
