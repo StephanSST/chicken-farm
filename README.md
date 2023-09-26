@@ -12,7 +12,9 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 * Story: switch to feign client
 * Story: fix disabled test
 * Story: Integration test with whole process (testing)
+* Story: maybe distinct discovey result
 
+* Story: (done) keep state of box to prevent multiple messages
 * Story: (done) using Lombok to log
 * Story: (done) respect both boxes in Schedule
 * Story: (done) ENV VAR for "enabled" and Schedule "fixedRate"
