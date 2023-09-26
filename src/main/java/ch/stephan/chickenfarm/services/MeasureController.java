@@ -37,8 +37,8 @@ public class MeasureController {
 	public Message measure() {
 		String message = boxService.getBoxes().stream()//
 				.map(b -> {
-					int weight = scaleService.measureWeight(b.id());
-					return String.format(MEASURE, b.id(), b.description(), weight);
+					int weight = scaleService.measureWeight(b.getId());
+					return String.format(MEASURE, b.getId(), b.getDescription(), weight);
 				})//
 				.collect(Collectors.joining(COMMA, EMPTY_STRING, POINT));
 		return new Message(counter.incrementAndGet(), message);

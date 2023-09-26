@@ -1,4 +1,14 @@
 package ch.stephan.chickenfarm.dto;
 
-public record Box(String id, String description) {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@AllArgsConstructor
+@Data
+public class Box {
+
+	private String id;
+	private String description;
+	private BoxState boxState;
+
 }
