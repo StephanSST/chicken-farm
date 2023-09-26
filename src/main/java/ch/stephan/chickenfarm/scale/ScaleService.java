@@ -137,6 +137,11 @@ public class ScaleService {
 			discoveryResult.add(discovery);
 		}
 
+		@Override
+		public boolean equals(Object obj) {
+			return obj instanceof EnumerateListenerImpl;
+		}
+
 		private String asString(short[] version) {
 			return version[0] + "." + version[1] + "." + version[2];
 		}
