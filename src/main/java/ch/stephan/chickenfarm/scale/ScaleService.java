@@ -28,6 +28,7 @@ public class ScaleService {
 
 	private IPConnection ipConnection;
 	private List<Discovery> discoveryResult;
+	EnumerateListenerImpl enumerateListener = new EnumerateListenerImpl();
 
 	public ScaleService() {
 		super();
@@ -104,7 +105,8 @@ public class ScaleService {
 		try {
 			ipConnection = new IPConnection();
 			ipConnection.connect(HOST, PORT);
-			ipConnection.addEnumerateListener(new EnumerateListenerImpl());
+			ipConnection.removeEnumerateListener(enumerateListener);
+			ipConnection.addEnumerateListener(enumerateListener);
 		} catch (AlreadyConnectedException ex) {
 			ex.printStackTrace();
 		} catch (NetworkException ex) {
