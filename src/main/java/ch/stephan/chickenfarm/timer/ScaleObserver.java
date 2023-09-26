@@ -37,12 +37,12 @@ public class ScaleObserver {
 	}
 
 	private void measureWeightOfScale(Box box) {
-		String uid = box.getId();
-		int weight = scaleService.measureWeight(uid);
+		int weight = scaleService.measureWeight(box.getId());
 
 		if (weight > 1000) { // chicken in the box
 			String message = MessageFormatter
-					.format("Ein Huhn sitzt in der Legebox {} und ist {}g schwer.", uid, weight).getMessage();
+					.format("Ein Huhn sitzt in der Legebox {} und ist {}g schwer.", box.getDescription(), weight)
+					.getMessage();
 			log.info(message);
 
 			if (box.getBoxState() == BoxState.EMPTY) {
@@ -52,8 +52,8 @@ public class ScaleObserver {
 			}
 
 		} else if (weight > 50) { // egg in the box
-			String message = MessageFormatter.format("Huhn in der Legebox {} hat ein Ei von {}g gelegt.", uid, weight)
-					.getMessage();
+			String message = MessageFormatter
+					.format("Huhn in der Legebox {} hat ein Ei von {}g gelegt.", box.getId(), weight).getMessage();
 			log.info(message);
 
 			if (box.getBoxState() == BoxState.CHICKEN_IN) {
@@ -63,7 +63,7 @@ public class ScaleObserver {
 			}
 
 		} else { // nothing special
-			log.info("Box {} with weight {}g at {}", uid, weight, dateFormat.format(new Date()));
+			log.info("Box {} with weight {}g at {}", box.getId(), weight, dateFormat.format(new Date()));
 			box.setBoxState(BoxState.EMPTY);
 		}
 
