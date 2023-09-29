@@ -43,6 +43,13 @@
 			<artifactId>tinkerforge</artifactId>
 			<version>2.1.32</version>
 		</dependency>
+		<!--Slack libs -->
+		<dependency>
+			<groupId>com.slack.api</groupId>
+			<artifactId>slack-api-client</artifactId>
+			<version>1.32.2</version>
+		</dependency>
+
 
 		<!--test libs -->
 		<dependency>

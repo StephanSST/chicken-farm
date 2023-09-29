@@ -3,9 +3,8 @@ spring:
     name: chicken-farm
 
 messengerservice:
-  from: ${THREEMA_FROM:huehnerstall}
-  to: ${THREEMA_TO:myself}
-  secret: ${THREEMA_SECRET:joshua}
+  channel: ${SLACK_CHANNEL:c01234567}
+  token: ${SLACK_TOKEN:myself}
   enabled: ${MESSENGER_ENABLED:false}
 
 schedulerservice:

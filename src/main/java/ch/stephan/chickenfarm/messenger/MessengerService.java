@@ -1,16 +1,12 @@
 package ch.stephan.chickenfarm.messenger;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.RestTemplate;
+
+import com.slack.api.Slack;
+import com.slack.api.methods.MethodsClient;
+import com.slack.api.methods.request.chat.ChatPostMessageRequest;
+import com.slack.api.methods.response.chat.ChatPostMessageResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,25 +14,14 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MessengerService {
 
-	private static final String URL = "https://msgapi.threema.ch/send_simple?to={to}&text={text}&from={from}&secret={secret}";
+	@Value("${messengerservice.channel}")
+	private String channel;
 
-	private final RestTemplate restTemplate;
-
-	@Value("${messengerservice.from}")
-	private String from;
-
-	@Value("${messengerservice.to}")
-	private String to;
-
-	@Value("${messengerservice.secret}")
-	private String secret;
+	@Value("${messengerservice.token}")
+	private String token;
 
 	@Value("${messengerservice.enabled}")
 	private boolean enabled;
-
-	public MessengerService(RestTemplateBuilder restTemplateBuilder) {
-		this.restTemplate = restTemplateBuilder.build();
-	}
 
 	public String sendNotification(String message) {
 		if (!enabled) {
@@ -44,30 +29,28 @@ public class MessengerService {
 		}
 
 		try {
-			HttpHeaders headers = new HttpHeaders();
-			headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
-			HttpEntity<?> httpEntity = new HttpEntity<>(headers);
+			Slack slack = Slack.getInstance();
+			// Initialize an API Methods client with the given token
+			MethodsClient methods = slack.methods(token);
 
-			Map<String, String> params = new HashMap<>();
-			params.put("to", to);
-			params.put("text", message);
-			params.put("from", from);
-			params.put("secret", secret);
+			// Build a request object
+			ChatPostMessageRequest request = ChatPostMessageRequest.builder().channel(channel)//
+					.text(":wave: " + message).build();
 
-			String messageId = restTemplate.postForObject(URL, httpEntity, String.class, params);
-
-			log.info("Message with id {} successfully sent.", messageId);
-			return messageId;
-
-		} catch (HttpStatusCodeException ex) {
-			log.error("getStatusCode: " + ex.getStatusCode());
-			log.error("getResponseHeaders: " + ex.getResponseHeaders());
-			log.error("getResponseBodyAsString: " + ex.getResponseBodyAsString());
-			log.error("getMessage: " + ex.getMessage());
-			log.error("Error sending message with http code {}, see logs for more info.", ex.getStatusCode());
-			return "Error sending message with http code " + ex.getStatusCode();
+			// Get a response as a Java object
+			ChatPostMessageResponse response = methods.chatPostMessage(request);
+			if (response.isOk()) {
+				String messageId = response.getHttpResponseHeaders().get("x-slack-unique-id").toString();
+				log.info("Message with id {} successfully sent.", messageId);
+				return messageId;
+			} else {
+				String errorCode = response.getError();
+				return "Error sending message with error " + errorCode;
+			}
+		} catch (Exception ex) {
+			log.error("Unexpected exception calling the Slack API", ex);
+			return "Error sending message with error " + ex.getMessage();
 		}
-
 	}
 
 }

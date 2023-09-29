@@ -3,9 +3,8 @@ spring:
     name: chicken-farm
 
 messengerservice:
-  from: "dummy"
-  to: "dummy"
-  secret: "dummy"
+  channel: "dummy"
+  token: "dummy"
   enabled: false
 
 schedulerservice:
