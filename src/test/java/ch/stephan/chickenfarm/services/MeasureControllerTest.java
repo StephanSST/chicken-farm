@@ -74,7 +74,7 @@ class MeasureControllerTest {
         Message message = objectMapper.readValue(mockMvcResult, new TypeReference<>() {});
         
         assertNotNull(message);
-        assertThat(message.content()).isEqualTo(MESSAGE_TEXT);
+        assertThat(message.content()).isEqualTo(":wink: " + MESSAGE_TEXT);
     }
 
 	@Test
