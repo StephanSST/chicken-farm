@@ -35,7 +35,7 @@ public class MessengerService {
 
 			// Build a request object
 			ChatPostMessageRequest request = ChatPostMessageRequest.builder().channel(channel)//
-					.text(":wave: " + message).build();
+					.text(message).build();
 
 			// Get a response as a Java object
 			ChatPostMessageResponse response = methods.chatPostMessage(request);

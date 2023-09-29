@@ -63,7 +63,7 @@ public class MeasureController {
 
 	@GetMapping("/send")
 	public Message send(@RequestParam(value = "text") String text) {
-		String result = messengerService.sendNotification(text);
+		String result = messengerService.sendNotification(":wink:" + text);
 		return new Message(counter.incrementAndGet(), result);
 	}
 
