@@ -50,7 +50,7 @@ public class MeasureController {
 	}
 
 	@GetMapping("/tare")
-	public Message tare(@RequestParam(value = "uid") String uid) {
+	public Message tare(@RequestParam(value = "uid", required = false) String uid) {
 		String message = boxService.getBoxes().stream()//
 				.filter(b -> uid == null || b.getId().equals(uid))//
 				.map(b -> {

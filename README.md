@@ -8,6 +8,8 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 ### Epic v1: Chicken scale recognizes weight change and sends message about state (which chicken, an egg) via Messenger
 
+* Story: responses der Restful serivces überarbeiten
+* Story: setting timezone and locale (-Duser.timezone="Europe/Zurich")
 * Story: fix disabled test
 * Story: Integration test with whole process (testing)
 
