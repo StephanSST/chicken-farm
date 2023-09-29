@@ -20,7 +20,7 @@ public class MeasureController {
 	private static final String EMPTY_STRING = "";
 	private static final String MEASURE = "Weight of box %s (%s) is %s";
 	private static final String CALIBRATE = "Calibrated box %s, result: %s.";
-	private static final String TARE = "Tared box %s, result: %s.";
+	private static final String TARE = "Tared box %s, result: %s";
 
 	private final AtomicLong counter = new AtomicLong();
 
@@ -51,7 +51,14 @@ public class MeasureController {
 
 	@GetMapping("/tare")
 	public Message tare(@RequestParam(value = "uid") String uid) {
-		return new Message(counter.incrementAndGet(), String.format(TARE, uid, scaleService.tare(uid)));
+		String message = boxService.getBoxes().stream()//
+				.filter(b -> uid == null || b.getId().equals(uid))//
+				.map(b -> {
+					String result = scaleService.tare(b.getId());
+					return String.format(TARE, b.getId(), b.getDescription(), result);
+				})//
+				.collect(Collectors.joining(COMMA, EMPTY_STRING, POINT));
+		return new Message(counter.incrementAndGet(), message);
 	}
 
 	@GetMapping("/send")

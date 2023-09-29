@@ -12,8 +12,9 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 * Story: switch to feign client
 * Story: fix disabled test
 * Story: Integration test with whole process (testing)
-* Story: maybe distinct discovey result
 
+* Story: (done) tare for both boxes
+* Story: (done) maybe distinct discovey result
 * Story: (done) keep state of box to prevent multiple messages
 * Story: (done) using Lombok to log
 * Story: (done) respect both boxes in Schedule
@@ -33,6 +34,7 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 
 ### Epic v2: Recognize chicken
+* Story: UI for all webservices
 * Story: connect load cell UID with box number
 * Story: persist chicken weight, box weight, uid-box-mapping to file
 * Story: manage chickens and box
