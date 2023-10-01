@@ -8,6 +8,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -18,8 +20,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ch.stephan.chickenfarm.dto.Chicken;
+import ch.stephan.chickenfarm.dto.Measure;
 import ch.stephan.chickenfarm.dto.Message;
 import ch.stephan.chickenfarm.messenger.MessengerService;
+import ch.stephan.chickenfarm.registry.ChickenService;
 import ch.stephan.chickenfarm.scale.ScaleService;
 
 @WebMvcTest(value = MeasureController.class)
@@ -29,8 +34,8 @@ class MeasureControllerTest {
 	private static final String CALIBRATION_RESULT = "successfully calibrated";
 	private static final String UID1 = "23yp";
 	private static final String UID2 = "ZUw";
-	private static final int CURRENT_WEIGHT1 = 666;
-	private static final int CURRENT_WEIGHT2 = 667;
+	private static final Chicken CHICKEN1 = ChickenService.HEIDI;
+	private static final Chicken CHICKEN2 = ChickenService.KLARA;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -46,8 +51,8 @@ class MeasureControllerTest {
 
 	@Test
     void testMeasure() throws Exception {
-        when(scaleService.measureWeight(eq(UID1))).thenReturn(CURRENT_WEIGHT1);
-        when(scaleService.measureWeight(eq(UID2))).thenReturn(CURRENT_WEIGHT2);
+        when(scaleService.measureWeight(eq(UID1))).thenReturn(CHICKEN1.weight());
+        when(scaleService.measureWeight(eq(UID2))).thenReturn(CHICKEN2.weight());
 
         String mockMvcResult = mockMvc.perform(get("/measure").contentType(MediaType.APPLICATION_JSON))//
                 .andExpect(status().isOk())//
@@ -55,10 +60,18 @@ class MeasureControllerTest {
                 .getResponse()//
                 .getContentAsString();
 
-        Message message = objectMapper.readValue(mockMvcResult, new TypeReference<>() {});
+        List<Measure> measures = objectMapper.readValue(mockMvcResult, new TypeReference<>() {});
 
-        assertNotNull(message);
-        assertThat(message.content()).isEqualTo("Weight of box 23yp (hinten) is 666, Weight of box ZUw (vorne) is 667.");
+        assertNotNull(measures);
+		assertThat(measures).hasSize(2);
+		assertThat(measures.get(0).boxId()).isEqualTo(UID1);
+		assertThat(measures.get(0).boxDescription()).isEqualTo("hinten");
+		assertThat(measures.get(0).currentWeight()).isEqualTo(CHICKEN1.weight());
+		assertThat(measures.get(0).currentChicken()).isEqualTo(CHICKEN1.name());
+		assertThat(measures.get(1).boxId()).isEqualTo(UID2);
+		assertThat(measures.get(1).boxDescription()).isEqualTo("vorne");
+		assertThat(measures.get(1).currentWeight()).isEqualTo(CHICKEN2.weight());
+		assertThat(measures.get(1).currentChicken()).isEqualTo(CHICKEN2.name());
     }
 
 	@Test

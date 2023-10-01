@@ -1,5 +1,6 @@
 package ch.stephan.chickenfarm.services;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
@@ -8,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.stephan.chickenfarm.dto.Measure;
 import ch.stephan.chickenfarm.dto.Message;
 import ch.stephan.chickenfarm.messenger.MessengerService;
 import ch.stephan.chickenfarm.registry.BoxService;
+import ch.stephan.chickenfarm.registry.ChickenService;
 import ch.stephan.chickenfarm.scale.ScaleService;
 
 @RestController
@@ -18,7 +21,6 @@ public class MeasureController {
 	private static final String POINT = ".";
 	private static final String COMMA = ", ";
 	private static final String EMPTY_STRING = "";
-	private static final String MEASURE = "Weight of box %s (%s) is %s";
 	private static final String CALIBRATE = "Calibrated box %s, result: %s.";
 	private static final String TARE = "Tared box %s (%s), result: %s";
 
@@ -33,15 +35,18 @@ public class MeasureController {
 	@Autowired
 	private BoxService boxService;
 
+	@Autowired
+	private ChickenService chickenService;
+
 	@GetMapping("/measure")
-	public Message measure() {
-		String message = boxService.getBoxes().stream()//
+	public List<Measure> measure() {
+		return boxService.getBoxes().stream()//
 				.map(b -> {
 					int weight = scaleService.measureWeight(b.getId());
-					return String.format(MEASURE, b.getId(), b.getDescription(), weight);
+					String chicken = (weight > 500) ? chickenService.getChicken(weight).name() : null;
+					return new Measure(b.getId(), b.getDescription(), weight, chicken);
 				})//
-				.collect(Collectors.joining(COMMA, EMPTY_STRING, POINT));
-		return new Message(counter.incrementAndGet(), message);
+				.collect(Collectors.toList());
 	}
 
 	@GetMapping("/calibrate")
