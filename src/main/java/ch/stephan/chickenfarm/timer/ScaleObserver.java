@@ -3,15 +3,16 @@ package ch.stephan.chickenfarm.timer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.slf4j.helpers.MessageFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import ch.stephan.chickenfarm.dto.Box;
 import ch.stephan.chickenfarm.dto.BoxState;
+import ch.stephan.chickenfarm.dto.Chicken;
 import ch.stephan.chickenfarm.messenger.MessengerService;
 import ch.stephan.chickenfarm.registry.BoxService;
+import ch.stephan.chickenfarm.registry.ChickenService;
 import ch.stephan.chickenfarm.scale.ScaleService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,6 +31,9 @@ public class ScaleObserver {
 	@Autowired
 	private MessengerService messengerService;
 
+	@Autowired
+	private ChickenService chickenService;
+
 	@Scheduled(fixedRateString = "${schedulerservice.fixedRate}")
 	public void measureWeights() {
 		boxService.getBoxes().stream()//
@@ -40,8 +44,9 @@ public class ScaleObserver {
 		int weight = scaleService.measureWeight(box.getId());
 
 		if (weight > 1000) { // chicken in the box
-			String message = MessageFormatter.format(":chicken: Ein Huhn sitzt in der Legebox {} und ist {}g schwer.",
-					box.getDescription(), weight).getMessage();
+			Chicken chicken = chickenService.getChicken(weight);
+			String message = String.format(":chicken: %s sitzt in der Legebox %s und ist %sg schwer.", chicken.name(),
+					box.getDescription(), weight);
 			log.info(message);
 
 			if (box.getBoxState() == BoxState.EMPTY) {
@@ -51,9 +56,9 @@ public class ScaleObserver {
 			}
 
 		} else if (weight > 50) { // egg in the box
-			String message = MessageFormatter
-					.format(":nest_with_eggs: Huhn in der Legebox {} hat ein Ei von {}g gelegt.", box.getId(), weight)
-					.getMessage();
+			Chicken chicken = chickenService.getChicken(weight);
+			String message = String.format(":nest_with_eggs: %s in der Legebox %s hat ein Ei von %sg gelegt.",
+					chicken.name(), box.getDescription(), weight);
 			log.info(message);
 
 			if (box.getBoxState() == BoxState.CHICKEN_IN) {
@@ -63,8 +68,10 @@ public class ScaleObserver {
 			}
 
 		} else { // nothing special
-			log.info("Box {} with weight {}g at {}", box.getId(), weight, dateFormat.format(new Date()));
+			log.info("Box {} ({}) with weight {}g at {}", box.getId(), box.getDescription(), weight,
+					dateFormat.format(new Date()));
 			box.setBoxState(BoxState.EMPTY);
+			scaleService.tare(box.getId());
 		}
 
 	}

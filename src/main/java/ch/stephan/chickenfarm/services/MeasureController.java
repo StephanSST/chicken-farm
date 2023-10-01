@@ -20,7 +20,7 @@ public class MeasureController {
 	private static final String EMPTY_STRING = "";
 	private static final String MEASURE = "Weight of box %s (%s) is %s";
 	private static final String CALIBRATE = "Calibrated box %s, result: %s.";
-	private static final String TARE = "Tared box %s, result: %s";
+	private static final String TARE = "Tared box %s (%s), result: %s";
 
 	private final AtomicLong counter = new AtomicLong();
 
