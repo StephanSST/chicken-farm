@@ -1,26 +1,21 @@
 package ch.stephan.chickenfarm.services;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import ch.stephan.chickenfarm.dto.Discovery;
+import ch.stephan.chickenfarm.scale.ScaleService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import java.util.UUID;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import ch.stephan.chickenfarm.dto.Discovery;
-import ch.stephan.chickenfarm.scale.ScaleService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(value = DiscoveryController.class)
 class DiscoveryControllerTest {
@@ -42,7 +37,7 @@ class DiscoveryControllerTest {
 	private ScaleService scaleService;
 
 	@Test
-	@Disabled("always leads to strange threading exceptions")
+//	@Disabled("always leads to strange threading exceptions")
 	void testDiscovery() throws Exception {
 		List<Discovery> discoveries = List.of(new Discovery(DEVICE_IDENTIFIER, UID, PARENT_UID, POSITION,
 				ENUMERATION_TYPE, HARDWARE_VERSION, FIRMWARE_VERSION));
