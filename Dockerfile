@@ -1,4 +1,5 @@
 FROM eclipse-temurin:17-jdk-jammy
+ENV TZ=Europe/Zurich
 
 # install Tinkerforge Brick Daemon
 RUN wget https://download.tinkerforge.com/apt/raspbian/tinkerforge.gpg -q -O - | tee /etc/apt/trusted.gpg.d/tinkerforge.gpg > /dev/null
