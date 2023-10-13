@@ -1,22 +1,15 @@
 package ch.stephan.chickenfarm.registry;
 
+import ch.stephan.chickenfarm.dto.Box;
+import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
-import ch.stephan.chickenfarm.dto.Box;
-import ch.stephan.chickenfarm.dto.BoxState;
-import jakarta.annotation.PostConstruct;
 
 @Service
 public class BoxService {
 
-	private static List<Box> sBoxes = null;
-
-	public BoxService() {
-		super();
-	}
+    private static List<Box> sBoxes = null;
 
 	public List<Box> getBoxes() {
 		return sBoxes;
@@ -25,8 +18,8 @@ public class BoxService {
 	@PostConstruct
 	public void initBoxes() {
 		sBoxes = new ArrayList<>();
-		sBoxes.add(new Box("23yp", "hinten", BoxState.EMPTY));
-		sBoxes.add(new Box("ZUw", "vorne", BoxState.EMPTY));
+		sBoxes.add(Box.HINTEN);
+		sBoxes.add(Box.VORNE);
 	}
 
 }
