@@ -8,13 +8,16 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 ### Epic v1: Chicken scale recognizes weight change and sends message about state (which chicken, an egg) via Messenger
 
-* Story: responses of restful serivces reworked
+* Story: daily tare in the morning am 5 oclock
 * Story: check logs, observer and service log twice
-* Story: using constants for box entities (in tests)
-* Story: setting timezone and locale (-Duser.timezone="Europe/Zurich")
-* Story: fix disabled test
-* Story: Integration test with whole process (testing)
 
+* Story: (done) more unit tests
+* Story: (done) message when chicken leaves without an egg
+* Story: (done) fix disabled test (happens because ScaleObserver shoots in between).
+* Story: (done) move constants to entities (box and chicken)
+* Story: (done) setting timezone (-Duser.timezone="Europe/Zurich")
+* Story: (done) using constants for box entities (in tests)
+* Story: (done) responses of restful serivces reworked
 * Story: (done) detect chicken from weight
 * Story: (done) Switch to Slack
 * Story: (done) tare for both boxes
@@ -37,9 +40,10 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 * Story: (done) create webservice GET base
 
 
-### Epic v2: Recognize chicken
+### Epic v2: advanced features
+* Story: Integration test with whole process (testing)
 * Story: UI for all webservices
-* Story: connect load cell UID with box number
 * Story: persist chicken weight, box weight, uid-box-mapping to file
-* Story: manage chickens and box
 * Story: integrate Prometheus
+* Story: more precise way to get current weight.
+* Story: event that second egg gets layed
