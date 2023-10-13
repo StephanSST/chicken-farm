@@ -8,4 +8,7 @@ messengerservice:
   enabled: ${MESSENGER_ENABLED:false}
 
 schedulerservice:
-  fixedRate: ${SCHEDULER_FIXED_RATE:60000}
+  observer:
+    cron: "0 * * * * *"
+  tare:
+    cron: "30 0 5 * * *"
