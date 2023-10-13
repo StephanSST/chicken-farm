@@ -1,12 +1,10 @@
 package ch.stephan.chickenfarm.registry;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import ch.stephan.chickenfarm.dto.Chicken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import ch.stephan.chickenfarm.dto.Chicken;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ChickenServiceTest {
 
@@ -20,45 +18,45 @@ class ChickenServiceTest {
 
 	@Test
 	void testEqualWeight() {
-		Chicken chicken = chickenService.getChicken(ChickenService.HEIDI.weight());
-		assertEquals(ChickenService.HEIDI, chicken);
+		Chicken chicken = chickenService.getChicken(Chicken.HEIDI.weight());
+		assertEquals(Chicken.HEIDI, chicken);
 
-		chicken = chickenService.getChicken(ChickenService.KLARA.weight());
-		assertEquals(ChickenService.KLARA, chicken);
+		chicken = chickenService.getChicken(Chicken.KLARA.weight());
+		assertEquals(Chicken.KLARA, chicken);
 
-		chicken = chickenService.getChicken(ChickenService.LILI.weight());
-		assertEquals(ChickenService.LILI, chicken);
+		chicken = chickenService.getChicken(Chicken.LILI.weight());
+		assertEquals(Chicken.LILI, chicken);
 	}
 
 	@Test
 	void testTenGrammLighter() {
-		Chicken chicken = chickenService.getChicken(ChickenService.HEIDI.weight() - 10);
-		assertEquals(ChickenService.HEIDI, chicken);
+		Chicken chicken = chickenService.getChicken(Chicken.HEIDI.weight() - 10);
+		assertEquals(Chicken.HEIDI, chicken);
 
-		chicken = chickenService.getChicken(ChickenService.KLARA.weight() - 10);
-		assertEquals(ChickenService.KLARA, chicken);
+		chicken = chickenService.getChicken(Chicken.KLARA.weight() - 10);
+		assertEquals(Chicken.KLARA, chicken);
 
-		chicken = chickenService.getChicken(ChickenService.LILI.weight() - 10);
-		assertEquals(ChickenService.LILI, chicken);
+		chicken = chickenService.getChicken(Chicken.LILI.weight() - 10);
+		assertEquals(Chicken.LILI, chicken);
 	}
 
 	@Test
 	void testTenGrammHeavier() {
-		Chicken chicken = chickenService.getChicken(ChickenService.HEIDI.weight() + 10);
-		assertEquals(ChickenService.HEIDI, chicken);
+		Chicken chicken = chickenService.getChicken(Chicken.HEIDI.weight() + 10);
+		assertEquals(Chicken.HEIDI, chicken);
 
-		chicken = chickenService.getChicken(ChickenService.KLARA.weight() + 10);
-		assertEquals(ChickenService.KLARA, chicken);
+		chicken = chickenService.getChicken(Chicken.KLARA.weight() + 10);
+		assertEquals(Chicken.KLARA, chicken);
 
-		chicken = chickenService.getChicken(ChickenService.LILI.weight() + 10);
-		assertEquals(ChickenService.LILI, chicken);
+		chicken = chickenService.getChicken(Chicken.LILI.weight() + 10);
+		assertEquals(Chicken.LILI, chicken);
 	}
 
 	@Test
 	void testJustBetween() {
 		Chicken chicken = chickenService.getChicken(2800);
 		assertTrue(
-				chicken.name().equals(ChickenService.KLARA.name()) || chicken.name().equals(ChickenService.LILI.name()),
+				chicken.name().equals(Chicken.KLARA.name()) || chicken.name().equals(Chicken.LILI.name()),
 				"Chicken was: " + chicken);
 	}
 
