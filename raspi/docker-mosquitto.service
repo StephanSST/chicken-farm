@@ -1,0 +1,24 @@
+# File /etc/systemd/system/docker-mosquitto.service
+
+[Unit]
+Description=starts mosquitto server provided as Docker container
+After=docker.service
+Requires=docker.service
+
+[Service]
+RemainAfterExit=true
+ExecStartPre=-/usr/bin/docker stop mosquitto
+ExecStartPre=-/usr/bin/docker rm mosquitto
+ExecStartPre=-/usr/bin/docker pull eclipse-mosquitto:2.0
+ExecStart=/usr/bin/docker run \
+  -d --restart unless-stopped \
+  -p 1883:1883 -p 9001:9001 \
+  -v /var/mosquitto/config:/mosquitto/config:rw \
+  -v /var/mosquitto/data:/mosquitto/data:rw \
+  -v /var/mosquitto/log:/mosquitto/log:rw \
+  --name mosquitto eclipse-mosquitto:2.0
+ExecStop=/usr/bin/docker stop mosquitto
+TimeoutSec=300
+
+[Install]
+WantedBy=multi-user.target
