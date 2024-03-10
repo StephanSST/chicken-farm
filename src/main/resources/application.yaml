@@ -12,3 +12,7 @@ schedulerservice:
     cron: "0 * * * * *"
   tare:
     cron: "30 0 5 * * *"
+
+mqtt:
+  user: ${MQTT_USER}
+  password: ${MQTT_PASSWORD}

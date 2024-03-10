@@ -12,3 +12,7 @@ schedulerservice:
     cron: "-"
   tare:
     cron: "-"
+
+mqtt:
+  user: dummy
+  password: dummy

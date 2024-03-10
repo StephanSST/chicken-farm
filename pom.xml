@@ -37,6 +37,12 @@
       <scope>provided</scope>
     </dependency>
 
+    <!-- 3rd party libs -->
+    <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-mqtt</artifactId>
+      <version>6.2.2</version>
+    </dependency>
     <!--Tinkerforge libs -->
     <dependency>
       <groupId>com.tinkerforge</groupId>
