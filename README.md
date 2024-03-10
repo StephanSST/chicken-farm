@@ -8,9 +8,9 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 ### Epic v1: Chicken scale recognizes weight change and sends message about state (which chicken, an egg) via Messenger
 
-* Story: daily tare in the morning am 5 oclock
 * Story: check logs, observer and service log twice
 
+* Story: (done) daily tare in the morning am 5 oclock
 * Story: (done) more unit tests
 * Story: (done) message when chicken leaves without an egg
 * Story: (done) fix disabled test (happens because ScaleObserver shoots in between).
@@ -41,6 +41,7 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 
 ### Epic v2: advanced features
+* Story: algo for more precise weight results
 * Story: Integration test with whole process (testing)
 * Story: UI for all webservices
 * Story: persist chicken weight, box weight, uid-box-mapping to file
