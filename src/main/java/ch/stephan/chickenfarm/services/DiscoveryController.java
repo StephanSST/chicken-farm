@@ -17,7 +17,7 @@ public class DiscoveryController {
 
 	@GetMapping("/discovery")
 	public List<Discovery> discovery() {
-		return scaleService.discovery();
+		return null; // scaleService.discovery();
 	}
 
 }

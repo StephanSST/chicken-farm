@@ -6,11 +6,12 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class Box {
-    public static final Box VORNE = new Box("ZUw", "vorne", BoxState.EMPTY);
-    public static final Box HINTEN = new Box("23yp", "hinten", BoxState.EMPTY);
+	public static final Box VORNE = new Box("2", "vorne", BoxState.EMPTY, 0);
+	public static final Box HINTEN = new Box("1", "hinten", BoxState.EMPTY, 0);
 
 	private String id;
 	private String description;
 	private BoxState boxState;
+	private int weight;
 
 }

@@ -1,6 +1,7 @@
 package ch.stephan.chickenfarm.mqtt;
 
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +15,18 @@ import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
-import org.springframework.messaging.MessagingException;
 
+import ch.stephan.chickenfarm.registry.BoxService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Configuration
+@RequiredArgsConstructor
 public class MqttConfig {
+
+	@Autowired
+	private BoxService boxService;
 
 	@Value("${mqtt.user}")
 	private String user;
@@ -56,12 +65,13 @@ public class MqttConfig {
 	@Bean
 	@ServiceActivator(inputChannel = "mqttInputChannel")
 	MessageHandler handler() {
-		return new MessageHandler() {
-			@Override
-			public void handleMessage(Message<?> message) throws MessagingException {
-				System.out.println("MESSAGE: " + message.getPayload());
-			}
-
-		};
+		return message -> handleWeight(message);
 	}
+
+	protected void handleWeight(Message<?> message) {
+		String payload = (String) message.getPayload();
+		log.info("Current weights: " + payload);
+		MyMessageHandler.handleWeightMessage(payload, boxService);
+	}
+
 }
