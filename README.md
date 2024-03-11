@@ -9,7 +9,9 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 ### Epic v1: Chicken scale recognizes weight change and sends message about state (which chicken, an egg) via Messenger
 
 * Story: check logs, observer and service log twice
+* Story: write tests and mocks for mqtt client
 
+* Story: (done) remove Tinkerforge from Dockerfile
 * Story: (done) daily tare in the morning am 5 oclock
 * Story: (done) more unit tests
 * Story: (done) message when chicken leaves without an egg
