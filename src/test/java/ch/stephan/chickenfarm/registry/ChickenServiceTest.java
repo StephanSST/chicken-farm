@@ -1,10 +1,12 @@
 package ch.stephan.chickenfarm.registry;
 
-import ch.stephan.chickenfarm.dto.Chicken;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import ch.stephan.chickenfarm.dto.Chicken;
 
 class ChickenServiceTest {
 
@@ -36,8 +38,8 @@ class ChickenServiceTest {
 		chicken = chickenService.getChicken(Chicken.KLARA.weight() - 10);
 		assertEquals(Chicken.KLARA, chicken);
 
-		chicken = chickenService.getChicken(Chicken.LILI.weight() - 10);
-		assertEquals(Chicken.LILI, chicken);
+		chicken = chickenService.getChicken(Chicken.LULU.weight() - 10);
+		assertEquals(Chicken.LULU, chicken);
 	}
 
 	@Test
@@ -45,8 +47,8 @@ class ChickenServiceTest {
 		Chicken chicken = chickenService.getChicken(Chicken.HEIDI.weight() + 10);
 		assertEquals(Chicken.HEIDI, chicken);
 
-		chicken = chickenService.getChicken(Chicken.KLARA.weight() + 10);
-		assertEquals(Chicken.KLARA, chicken);
+		chicken = chickenService.getChicken(Chicken.LULU.weight() + 10);
+		assertEquals(Chicken.LULU, chicken);
 
 		chicken = chickenService.getChicken(Chicken.LILI.weight() + 10);
 		assertEquals(Chicken.LILI, chicken);
@@ -55,8 +57,7 @@ class ChickenServiceTest {
 	@Test
 	void testJustBetween() {
 		Chicken chicken = chickenService.getChicken(2800);
-		assertTrue(
-				chicken.name().equals(Chicken.KLARA.name()) || chicken.name().equals(Chicken.LILI.name()),
+		assertTrue(chicken.name().equals(Chicken.KLARA.name()) || chicken.name().equals(Chicken.LILI.name()),
 				"Chicken was: " + chicken);
 	}
 

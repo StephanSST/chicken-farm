@@ -1,10 +1,12 @@
 package ch.stephan.chickenfarm.registry;
 
-import ch.stephan.chickenfarm.dto.Chicken;
-import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.stereotype.Service;
+
+import ch.stephan.chickenfarm.dto.Chicken;
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class ChickenService {
@@ -34,6 +36,7 @@ public class ChickenService {
 		sChickens.add(Chicken.HEIDI);
 		sChickens.add(Chicken.KLARA);
 		sChickens.add(Chicken.LILI);
+		sChickens.add(Chicken.LULU);
 	}
 
 }

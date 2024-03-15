@@ -10,6 +10,10 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 * Story: check logs, observer and service log twice
 * Story: write tests and mocks for mqtt client
+* Story: initBoxes anhand der ENUM Liste
+* Story: taring am Morgen
+* Story: implement calibrate
+
 
 * Story: (done) remove Tinkerforge from Dockerfile
 * Story: (done) daily tare in the morning am 5 oclock
