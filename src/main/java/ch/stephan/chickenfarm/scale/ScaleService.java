@@ -3,6 +3,7 @@ package ch.stephan.chickenfarm.scale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ch.stephan.chickenfarm.mqtt.MessagingService;
 import ch.stephan.chickenfarm.registry.BoxService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,6 +13,9 @@ public class ScaleService {
 
 	@Autowired
 	private BoxService boxService;
+
+	@Autowired
+	private MessagingService messagingService;
 
 	public ScaleService() {
 		super();
@@ -29,6 +33,7 @@ public class ScaleService {
 	}
 
 	public String tare(String uid) {
+		messagingService.publish("tare:" + uid);
 		log.info("Scale {} has been tared.", uid);
 		return "successfully tared";
 	}

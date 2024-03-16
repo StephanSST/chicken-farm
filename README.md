@@ -9,13 +9,14 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 ### Epic v1: Chicken scale recognizes weight change and sends message about state (which chicken, an egg) via Messenger
 
 * check logs; observer and service log twice
-* write tests and mocks for mqtt client
 * taring am Morgen
 * implement calibrate
 * make ChickenService.initBoxes() save for new Chickens
 ** Convert Chicken to Enum
 ** initBoxes anhand der ENUM Liste
 * log messures to file or Prometheus
+* write tests and mocks for mqtt client
+
 
 
 * (done) remove Tinkerforge from Dockerfile

@@ -4,7 +4,6 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.core.MessageProducer;
@@ -21,9 +20,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Configuration
 @RequiredArgsConstructor
+//@Configuration
 public class MqttConfig {
+
+	private static final String MQTT_CLIENT_ID = "RaspberryPi";
 
 	@Autowired
 	private BoxService boxService;
@@ -40,7 +41,7 @@ public class MqttConfig {
 	}
 
 	@Bean
-	MqttPahoClientFactory clientFactory() {
+	MqttPahoClientFactory mqttClientFactory() {
 		DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
 		MqttConnectOptions options = new MqttConnectOptions();
 		options.setServerURIs(new String[] { "tcp://huehnerstall:1883" });
@@ -52,8 +53,8 @@ public class MqttConfig {
 
 	@Bean
 	MessageProducer inbound() {
-		MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter("RaspberryPi",
-				clientFactory(), "/chicken-farm/replies");
+		MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(MQTT_CLIENT_ID,
+				mqttClientFactory(), "/chicken-farm/replies");
 
 		adapter.setCompletionTimeout(5000);
 		adapter.setConverter(new DefaultPahoMessageConverter());
@@ -65,7 +66,10 @@ public class MqttConfig {
 	@Bean
 	@ServiceActivator(inputChannel = "mqttInputChannel")
 	MessageHandler handler() {
-		return message -> handleWeight(message);
+		return message -> {
+			// if message equals (s1....
+			handleWeight(message);
+		};
 	}
 
 	protected void handleWeight(Message<?> message) {
