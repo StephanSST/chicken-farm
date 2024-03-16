@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 public class MqttConfiguration {
 
-	private static final String MQTT_CLIENT_ID = "RaspberryPiProducer";
+	private static final String MQTT_CLIENT_ID = "RasPiProducer";
 
 	@Value("${mqtt.user}")
 	private String user;

@@ -8,12 +8,12 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 ### Epic v1: Chicken scale recognizes weight change and sends message about state (which chicken, an egg) via Messenger
 
+* fix Heidi bug
 * check logs; observer and service log twice
-* taring am Morgen
 * implement calibrate
 * make ChickenService.initBoxes() save for new Chickens
-** Convert Chicken to Enum
-** initBoxes anhand der ENUM Liste
+** Convert Chicken to enum
+** initBoxes using enum list
 * log messures to file or Prometheus
 * write tests and mocks for mqtt client
 
