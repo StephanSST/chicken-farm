@@ -8,49 +8,52 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 ### Epic v1: Chicken scale recognizes weight change and sends message about state (which chicken, an egg) via Messenger
 
-* Story: check logs, observer and service log twice
-* Story: write tests and mocks for mqtt client
-* Story: initBoxes anhand der ENUM Liste
-* Story: taring am Morgen
-* Story: implement calibrate
+* check logs; observer and service log twice
+* write tests and mocks for mqtt client
+* taring am Morgen
+* implement calibrate
+* make ChickenService.initBoxes() save for new Chickens
+** Convert Chicken to Enum
+** initBoxes anhand der ENUM Liste
+* log messures to file or Prometheus
 
 
-* Story: (done) remove Tinkerforge from Dockerfile
-* Story: (done) daily tare in the morning am 5 oclock
-* Story: (done) more unit tests
-* Story: (done) message when chicken leaves without an egg
-* Story: (done) fix disabled test (happens because ScaleObserver shoots in between).
-* Story: (done) move constants to entities (box and chicken)
-* Story: (done) setting timezone (-Duser.timezone="Europe/Zurich")
-* Story: (done) using constants for box entities (in tests)
-* Story: (done) responses of restful serivces reworked
-* Story: (done) detect chicken from weight
-* Story: (done) Switch to Slack
-* Story: (done) tare for both boxes
-* Story: (done) maybe distinct discovey result
-* Story: (done) keep state of box to prevent multiple messages
-* Story: (done) using Lombok to log
-* Story: (done) respect both boxes in Schedule
-* Story: (done) ENV VAR for "enabled" and Schedule "fixedRate"
-* Story: (done) write tests and mock for scale service (testing)
-* Story: (done) get current weight and calculate the "state" (chicken, egg)
-* Story: (done) env values via application.yaml
-* Story: (done) integrate Threema and send messages
-* Story: (done) read data from scale and show by webservice (GET)
-* Story: (done) change discovery webservice to use DO instead of strings
-* Story: (done) create scale service that delivers current weight
-* Story: (done) give calibrate webservice operation for load cell
-* Story: (done) create structure with timer service pulling dummy scale service and show data via GET service
-* Story: (done) install current Docker image on Raspberry PI and start it initially
-* Story: (done) using Github Actions to automatic build and create an image
-* Story: (done) create webservice GET base
+* (done) remove Tinkerforge from Dockerfile
+* (done) daily tare in the morning am 5 oclock
+* (done) more unit tests
+* (done) message when chicken leaves without an egg
+* (done) fix disabled test (happens because ScaleObserver shoots in between).
+* (done) move constants to entities (box and chicken)
+* (done) setting timezone (-Duser.timezone="Europe/Zurich")
+* (done) using constants for box entities (in tests)
+* (done) responses of restful serivces reworked
+* (done) detect chicken from weight
+* (done) Switch to Slack
+* (done) tare for both boxes
+* (done) maybe distinct discovey result
+* (done) keep state of box to prevent multiple messages
+* (done) using Lombok to log
+* (done) respect both boxes in Schedule
+* (done) ENV VAR for "enabled" and Schedule "fixedRate"
+* (done) write tests and mock for scale service (testing)
+* (done) get current weight and calculate the "state" (chicken, egg)
+* (done) env values via application.yaml
+* (done) integrate Threema and send messages
+* (done) read data from scale and show by webservice (GET)
+* (done) change discovery webservice to use DO instead of strings
+* (done) create scale service that delivers current weight
+* (done) give calibrate webservice operation for load cell
+* (done) create structure with timer service pulling dummy scale service and show data via GET service
+* (done) install current Docker image on Raspberry PI and start it initially
+* (done) using Github Actions to automatic build and create an image
+* (done) create webservice GET base
 
 
 ### Epic v2: advanced features
-* Story: algo for more precise weight results
-* Story: Integration test with whole process (testing)
-* Story: UI for all webservices
-* Story: persist chicken weight, box weight, uid-box-mapping to file
-* Story: integrate Prometheus
-* Story: more precise way to get current weight.
-* Story: event that second egg gets layed
+* algo for more precise weight results
+* Integration test with whole process (testing)
+* UI for all webservices
+* persist chicken weight, box weight, uid-box-mapping to file
+* integrate Prometheus
+* more precise way to get current weight.
+* event that second egg gets layed
