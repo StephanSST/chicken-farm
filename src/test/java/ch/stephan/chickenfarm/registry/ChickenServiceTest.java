@@ -19,39 +19,39 @@ class ChickenServiceTest {
 
 	@Test
 	void testEqualWeight() {
-		Chicken chicken = chickenService.getChicken(Chicken.HEIDI.weight());
+		Chicken chicken = chickenService.guessChicken(Chicken.HEIDI.weight());
 		assertEquals(Chicken.HEIDI, chicken);
 
-		chicken = chickenService.getChicken(Chicken.KLARA.weight());
+		chicken = chickenService.guessChicken(Chicken.KLARA.weight());
 		assertEquals(Chicken.KLARA, chicken);
 
-		chicken = chickenService.getChicken(Chicken.LILI.weight());
+		chicken = chickenService.guessChicken(Chicken.LILI.weight());
 		assertEquals(Chicken.LILI, chicken);
 
-		chicken = chickenService.getChicken(Chicken.LULU.weight());
+		chicken = chickenService.guessChicken(Chicken.LULU.weight());
 		assertEquals(Chicken.LULU, chicken);
 	}
 
 	@Test
 	void testTenGrammLighter() {
-		Chicken chicken = chickenService.getChicken(Chicken.HEIDI.weight() - 10);
+		Chicken chicken = chickenService.guessChicken(Chicken.HEIDI.weight() - 10);
 		assertEquals(Chicken.HEIDI, chicken);
 
-		chicken = chickenService.getChicken(Chicken.KLARA.weight() - 10);
+		chicken = chickenService.guessChicken(Chicken.KLARA.weight() - 10);
 		assertEquals(Chicken.KLARA, chicken);
 
-		chicken = chickenService.getChicken(Chicken.LULU.weight() - 10);
+		chicken = chickenService.guessChicken(Chicken.LULU.weight() - 10);
 		assertEquals(Chicken.LULU, chicken);
 	}
 
 	@Test
 	void testTenGrammHeavier() {
-		Chicken chicken = chickenService.getChicken(Chicken.HEIDI.weight() + 10);
+		Chicken chicken = chickenService.guessChicken(Chicken.HEIDI.weight() + 10);
 		assertEquals(Chicken.HEIDI, chicken);
-		chicken = chickenService.getChicken(Chicken.LILI.weight() + 10);
+		chicken = chickenService.guessChicken(Chicken.LILI.weight() + 10);
 		assertEquals(Chicken.LILI, chicken);
 
-		chicken = chickenService.getChicken(Chicken.LULU.weight() + 10);
+		chicken = chickenService.guessChicken(Chicken.LULU.weight() + 10);
 		assertEquals(Chicken.LULU, chicken);
 
 	}

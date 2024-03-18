@@ -17,7 +17,7 @@ public class ChickenService {
 		return sChickens;
 	}
 
-	public Chicken getChicken(int weight) {
+	public Chicken guessChicken(int weight) {
 		return sChickens.stream()//
 				.reduce(Chicken.HEIDI, (chicken, another) -> betterMatching(chicken, another, weight));
 	}
