@@ -54,8 +54,8 @@ class MeasureControllerTest {
 
 	@Test
     void testMeasure() throws Exception {
-        when(scaleService.measureWeight(eq(BOX1.getId()))).thenReturn(CHICKEN1.weight());
-        when(scaleService.measureWeight(eq(BOX2.getId()))).thenReturn(CHICKEN2.weight());
+        when(scaleService.measureWeight(eq(BOX1.getId()))).thenReturn(CHICKEN1.getWeight());
+        when(scaleService.measureWeight(eq(BOX2.getId()))).thenReturn(CHICKEN2.getWeight());
 
         String mockMvcResult = mockMvc.perform(get("/measure").contentType(MediaType.APPLICATION_JSON))//
                 .andExpect(status().isOk())//
@@ -69,11 +69,11 @@ class MeasureControllerTest {
 		assertThat(measures).hasSize(2);
 		assertThat(measures.get(0).boxId()).isEqualTo(BOX1.getId());
 		assertThat(measures.get(0).boxDescription()).isEqualTo(BOX1.getDescription());
-		assertThat(measures.get(0).currentWeight()).isEqualTo(CHICKEN1.weight());
+		assertThat(measures.get(0).currentWeight()).isEqualTo(CHICKEN1.getWeight());
 		assertThat(measures.get(0).currentChicken()).isEqualTo(CHICKEN1.name());
 		assertThat(measures.get(1).boxId()).isEqualTo(BOX2.getId());
 		assertThat(measures.get(1).boxDescription()).isEqualTo(BOX2.getDescription());
-		assertThat(measures.get(1).currentWeight()).isEqualTo(CHICKEN2.weight());
+		assertThat(measures.get(1).currentWeight()).isEqualTo(CHICKEN2.getWeight());
 		assertThat(measures.get(1).currentChicken()).isEqualTo(CHICKEN2.name());
     }
 
