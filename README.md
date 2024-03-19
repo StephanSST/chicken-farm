@@ -10,8 +10,8 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 * check logs; observer and service log twice
 * log messures to file or Prometheus
-* write tests and mocks for mqtt client
 * implement calibrate
+* write tests and mocks for mqtt client
 
 
 ## TODO List Arduino

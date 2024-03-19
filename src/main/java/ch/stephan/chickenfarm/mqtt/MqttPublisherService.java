@@ -5,11 +5,13 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 @Service
-public class MessagingService {
+public class MqttPublisherService {
 	private static final String TOPIC = "/chicken-farm/commands";
 
 	@Autowired

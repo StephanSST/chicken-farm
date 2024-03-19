@@ -3,11 +3,13 @@ package ch.stephan.chickenfarm.scale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ch.stephan.chickenfarm.mqtt.MessagingService;
+import ch.stephan.chickenfarm.mqtt.MqttPublisherService;
 import ch.stephan.chickenfarm.registry.BoxService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 @Service
 public class ScaleService {
 
@@ -15,11 +17,7 @@ public class ScaleService {
 	private BoxService boxService;
 
 	@Autowired
-	private MessagingService messagingService;
-
-	public ScaleService() {
-		super();
-	}
+	private MqttPublisherService mqttPublisherService;
 
 	public int measureWeight(String uid) {
 		int weight = boxService.getBox(uid).getWeight();
@@ -33,7 +31,7 @@ public class ScaleService {
 	}
 
 	public String tare(String uid) {
-		messagingService.publish("tare:" + uid);
+		mqttPublisherService.publish("tare:" + uid);
 		log.info("Scale {} has been tared.", uid);
 		return "successfully tared";
 	}

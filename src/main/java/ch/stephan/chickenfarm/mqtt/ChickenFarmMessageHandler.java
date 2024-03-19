@@ -4,7 +4,7 @@ import java.util.StringTokenizer;
 
 import ch.stephan.chickenfarm.registry.BoxService;
 
-public final class MyMessageHandler {
+public final class ChickenFarmMessageHandler {
 
 	public static void handleWeightMessage(String payload, BoxService boxService) {
 		StringTokenizer tokenizer = new StringTokenizer(payload, ";");

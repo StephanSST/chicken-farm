@@ -1,27 +1,62 @@
 package ch.stephan.chickenfarm.scale;
 
-import java.util.UUID;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import ch.stephan.chickenfarm.mqtt.MqttPublisherService;
+import ch.stephan.chickenfarm.registry.BoxService;
+
+@ExtendWith(MockitoExtension.class)
 class ScaleServiceTest {
-	private static final String UID = UUID.randomUUID().toString();
+
+	private static final String BOX_ID = "2";
 
 	private ScaleService scaleService;
 
+	@InjectMocks
+	private BoxService boxService;
+
+	@Mock
+	private MqttPublisherService mqttPublisherService;
+
 	@BeforeEach
 	void setUp() {
-		scaleService = new ScaleService();
+		MockitoAnnotations.openMocks(this);
+
+		boxService.initBoxes();
+
+		scaleService = new ScaleService(boxService, mqttPublisherService);
 	}
 
 	@Test
-	void test() {
-		// when(mockedIpConnection.).thenReturn(discoveries);
+	void measureWeight() {
+		int expectedWeight = 85;
 
-		// int result = scaleService.measureWeight(UID);
+		boxService.getBox(BOX_ID).setWeight(expectedWeight);
+		int result = scaleService.measureWeight(BOX_ID);
 
-		// fail("Not yet implemented");
+		assertEquals(expectedWeight, result);
+	}
+
+	@Test
+	void calibrate() {
+		String result = scaleService.calibrate(BOX_ID);
+
+		assertEquals("successfully calibrated", result);
+	}
+
+	@Test
+	void tare() {
+		String result = scaleService.tare(BOX_ID);
+
+		assertEquals("successfully tared", result);
 	}
 
 }

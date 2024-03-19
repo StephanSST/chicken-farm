@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ch.stephan.chickenfarm.registry.BoxService;
 
 @ExtendWith(MockitoExtension.class)
-class MyMessageHandlerTest {
+class ChickenFarmMessageHandlerTest {
 
 	@InjectMocks
 	private BoxService boxService;
@@ -24,7 +24,7 @@ class MyMessageHandlerTest {
 	@Test
 	void handleWeightMessage() {
 		String message = "s1:135.45;s2:-153.92";
-		MyMessageHandler.handleWeightMessage(message, boxService);
+		ChickenFarmMessageHandler.handleWeightMessage(message, boxService);
 		assertEquals(135, boxService.getBox("1").getWeight());
 		assertEquals(-153, boxService.getBox("2").getWeight());
 	}

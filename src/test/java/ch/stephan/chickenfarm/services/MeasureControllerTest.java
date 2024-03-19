@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,11 @@ import ch.stephan.chickenfarm.dto.Chicken;
 import ch.stephan.chickenfarm.dto.Measure;
 import ch.stephan.chickenfarm.dto.Message;
 import ch.stephan.chickenfarm.messenger.MessengerService;
+import ch.stephan.chickenfarm.registry.BoxService;
 import ch.stephan.chickenfarm.scale.ScaleService;
 
 @WebMvcTest(value = MeasureController.class)
-@Disabled("fix mqtt, mock it")
+@Disabled("Duplicate mock definition for BoxService, reason unknown")
 class MeasureControllerTest {
 
 	private static final String MESSAGE_TEXT = "Huhn hat ein Ei gelegt";
@@ -52,20 +54,31 @@ class MeasureControllerTest {
 	@MockBean
 	private MessengerService messengerService;
 
+	@MockBean
+	private BoxService boxService;
+
+	@BeforeEach
+	void setUp() {
+//		MockitoAnnotations.openMocks(this);
+	}
+
 	@Test
-    void testMeasure() throws Exception {
-        when(scaleService.measureWeight(eq(BOX1.getId()))).thenReturn(CHICKEN1.getWeight());
-        when(scaleService.measureWeight(eq(BOX2.getId()))).thenReturn(CHICKEN2.getWeight());
+	void testMeasure() throws Exception {
+//		when(boxService.getBoxes()).thenReturn(List.of(Box.HINTEN, Box.VORNE));
 
-        String mockMvcResult = mockMvc.perform(get("/measure").contentType(MediaType.APPLICATION_JSON))//
-                .andExpect(status().isOk())//
-                .andReturn()//
-                .getResponse()//
-                .getContentAsString();
+		when(scaleService.measureWeight(eq(BOX1.getId()))).thenReturn(CHICKEN1.getWeight());
+		when(scaleService.measureWeight(eq(BOX2.getId()))).thenReturn(CHICKEN2.getWeight());
 
-        List<Measure> measures = objectMapper.readValue(mockMvcResult, new TypeReference<>() {});
+		String mockMvcResult = mockMvc.perform(get("/measure").contentType(MediaType.APPLICATION_JSON))//
+				.andExpect(status().isOk())//
+				.andReturn()//
+				.getResponse()//
+				.getContentAsString();
 
-        assertNotNull(measures);
+		List<Measure> measures = objectMapper.readValue(mockMvcResult, new TypeReference<>() {
+		});
+
+		assertNotNull(measures);
 		assertThat(measures).hasSize(2);
 		assertThat(measures.get(0).boxId()).isEqualTo(BOX1.getId());
 		assertThat(measures.get(0).boxDescription()).isEqualTo(BOX1.getDescription());
@@ -75,7 +88,7 @@ class MeasureControllerTest {
 		assertThat(measures.get(1).boxDescription()).isEqualTo(BOX2.getDescription());
 		assertThat(measures.get(1).currentWeight()).isEqualTo(CHICKEN2.getWeight());
 		assertThat(measures.get(1).currentChicken()).isEqualTo(CHICKEN2.name());
-    }
+	}
 
 	@Test
     void testSend() throws Exception {
