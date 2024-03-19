@@ -14,7 +14,7 @@ public enum Chicken {
 		this.weight = weight;
 	}
 
-	public String getName() {
+	public String getDisplayName() {
 		return name;
 	}
 

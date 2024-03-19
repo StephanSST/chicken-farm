@@ -43,7 +43,7 @@ public class MeasureController {
 		return boxService.getBoxes().stream()//
 				.map(b -> {
 					int weight = scaleService.measureWeight(b.getId());
-					String chicken = (weight > 500) ? chickenService.guessChicken(weight).name() : null;
+					String chicken = (weight > 500) ? chickenService.guessChicken(weight).getDisplayName() : null;
 					return new Measure(b.getId(), b.getDescription(), weight, chicken);
 				})//
 				.collect(Collectors.toList());

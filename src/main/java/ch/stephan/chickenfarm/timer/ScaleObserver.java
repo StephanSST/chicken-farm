@@ -48,8 +48,8 @@ public class ScaleObserver {
 		if (weight > 1000) { // chicken in the box
 			Chicken chicken = chickenService.guessChicken(weight);
 			box.setChicken(chicken);
-			String message = String.format(":chicken: %s sitzt in der Legebox %s und ist %sg schwer.", chicken.name(),
-					box.getDescription(), weight);
+			String message = String.format(":chicken: %s sitzt in der Legebox %s und ist %sg schwer.",
+					chicken.getDisplayName(), box.getDescription(), weight);
 			log.info(message);
 
 			if (box.getBoxState() == BoxState.EMPTY) {
@@ -60,7 +60,7 @@ public class ScaleObserver {
 
 		} else if (weight > 50) { // egg in the box
 			String message = String.format(":nest_with_eggs: %s in der Legebox %s hat ein Ei von %sg gelegt.",
-					box.getChicken().name(), box.getDescription(), weight);
+					box.getChicken().getDisplayName(), box.getDescription(), weight);
 			log.info(message);
 
 			if (box.getBoxState() == BoxState.CHICKEN_IN) {

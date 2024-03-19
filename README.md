@@ -17,6 +17,7 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 ## TODO List Arduino
 
 * send stati on dedicated topic with qos 1 (?)
+* bugfix stati not appear on topic
 * implement calibration
 
 
