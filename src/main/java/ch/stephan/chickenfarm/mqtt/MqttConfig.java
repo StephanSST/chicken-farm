@@ -22,11 +22,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-@Profile("default")
+@Profile({ "default", "dev" })
 @Configuration
 public class MqttConfig {
 
-	private static final String MQTT_CLIENT_ID = "RasPiConsumer";
+	@Value("${mqtt.clientId.consumer}")
+	private String mqttClientId;
 
 	@Autowired
 	private BoxService boxService;
@@ -55,7 +56,7 @@ public class MqttConfig {
 
 	@Bean
 	MessageProducer inbound() {
-		MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(MQTT_CLIENT_ID,
+		MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(mqttClientId,
 				mqttClientFactory(), "/chicken-farm/replies");
 
 		adapter.setCompletionTimeout(5000);

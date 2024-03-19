@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Configuration
-@Profile({ "maven", "dev" })
+@Profile("maven")
 public class MockedMqttConfig {
 
 	@MockBean

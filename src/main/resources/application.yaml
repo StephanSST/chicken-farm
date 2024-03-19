@@ -16,3 +16,13 @@ schedulerservice:
 mqtt:
   user: ${MQTT_USER}
   password: ${MQTT_PASSWORD}
+  clientId:
+    producer: RasPiProducer
+    consumer: RasPiConsumer
+
+logging:
+  file:
+    name: /logs/application-debug.log
+  logback:
+    rollingpolicy:
+      max-history: 14

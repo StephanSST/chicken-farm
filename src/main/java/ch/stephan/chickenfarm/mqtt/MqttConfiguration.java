@@ -12,11 +12,12 @@ import org.springframework.context.annotation.Profile;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Profile("default")
+@Profile({ "default", "dev" })
 @Configuration
 public class MqttConfiguration {
 
-	private static final String MQTT_CLIENT_ID = "RasPiProducer";
+	@Value("${mqtt.clientId.producer}")
+	private String mqttClientId;
 
 	@Value("${mqtt.user}")
 	private String user;
@@ -34,7 +35,7 @@ public class MqttConfiguration {
 			options.setCleanSession(true);
 			options.setConnectionTimeout(10);
 
-			IMqttClient mqttClient = new MqttClient("tcp://huehnerstall:1883", MQTT_CLIENT_ID);
+			IMqttClient mqttClient = new MqttClient("tcp://huehnerstall:1883", mqttClientId);
 			mqttClient.connect(options);
 			log.info("successfully connected to MQTT server");
 			return mqttClient;

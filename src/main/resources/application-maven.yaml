@@ -16,3 +16,6 @@ schedulerservice:
 mqtt:
   user: dummy
   password: dummy
+  clientId:
+    producer: MavenProducer
+    consumer: MavenConsumer

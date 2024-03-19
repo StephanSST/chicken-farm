@@ -1,39 +1,47 @@
-{
-	"properties": [
-		{
-			"name": "messengerservice.enabled",
-			"type": "java.lang.String",
-			"description": "Send messages by messenger or not."
-		},
-		{
-			"name": "messengerservice.channel",
-			"type": "java.lang.String",
-			"description": "Name of the Slack channel to publish the messages"
-		},
-		{
-			"name": "messengerservice.token",
-			"type": "java.lang.String",
-			"description": "The security token to use Slack"
-		},
-		{
-			"name": "schedulerservice.observer.cron",
-			"type": "java.lang.String",
-			"description": "Cron expression for scale observer"
-		},
-		{
-			"name": "schedulerservice.tare.cron",
-			"type": "java.lang.String",
-			"description": "Cron expression when to tare the scale"
-		},
-		{
-			"name": "mqtt.user",
-			"type": "java.lang.String",
-			"description": "User id of the mqtt service"
-		},
-		{
-			"name": "mqtt.password",
-			"type": "java.lang.String",
-			"description": "Password of the mqtt service"
-		}
-	]
-}
+{"properties": [
+  {
+    "name": "messengerservice.enabled",
+    "type": "java.lang.String",
+    "description": "Send messages by messenger or not."
+  },
+  {
+    "name": "messengerservice.channel",
+    "type": "java.lang.String",
+    "description": "Name of the Slack channel to publish the messages"
+  },
+  {
+    "name": "messengerservice.token",
+    "type": "java.lang.String",
+    "description": "The security token to use Slack"
+  },
+  {
+    "name": "schedulerservice.observer.cron",
+    "type": "java.lang.String",
+    "description": "Cron expression for scale observer"
+  },
+  {
+    "name": "schedulerservice.tare.cron",
+    "type": "java.lang.String",
+    "description": "Cron expression when to tare the scale"
+  },
+  {
+    "name": "mqtt.user",
+    "type": "java.lang.String",
+    "description": "User id of the mqtt service"
+  },
+  {
+    "name": "mqtt.password",
+    "type": "java.lang.String",
+    "description": "Password of the mqtt service"
+  },
+  {
+    "name": "mqtt.clientId.producer",
+    "type": "java.lang.String",
+    "description": "Client id of the producer of mqtt events"
+  },
+  {
+    "name": "mqtt.clientId.consumer",
+    "type": "java.lang.String",
+    "description": "Client id of the consumer of mqtt events"
+  }
+]}
