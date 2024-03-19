@@ -8,6 +8,7 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 ### Epic v1: Chicken scale recognizes weight change and sends message about state (which chicken, an egg) via Messenger
 
+* address fliegender Wechsel with tare bug
 * check logs; observer and service log twice
 * implement calibrate
 * write tests and mocks for mqtt client
