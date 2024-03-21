@@ -13,6 +13,7 @@ ExecStartPre=-/usr/bin/docker pull stephanst/chicken-farm:latest
 ExecStart=/usr/bin/docker run -d --restart unless-stopped \
   -p 8080:8080 \
   --network="host" \
+  --volume /var/log/chicken-farm:/logs \
   --env SLACK_CHANNEL=xxxxx \ 
   --env SLACK_TOKEN=xxxxx \
   --env MESSENGER_ENABLED=true  \
