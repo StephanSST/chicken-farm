@@ -24,7 +24,7 @@ mqtt:
 
 logging:
   file:
-    name: ./logs/chicken-farm.log
+    name: /logs/chicken-farm.log
   logback:
     rollingpolicy:
       max-history: 14
