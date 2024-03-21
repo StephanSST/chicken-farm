@@ -20,9 +20,7 @@ public class ScaleService {
 	private MqttPublisherService mqttPublisherService;
 
 	public int measureWeight(String uid) {
-		int weight = boxService.getBox(uid).getWeight();
-		log.info("Scale {} has weight {}g.", uid, weight);
-		return weight;
+		return boxService.getBox(uid).getWeight();
 	}
 
 	public String calibrate(String uid) {

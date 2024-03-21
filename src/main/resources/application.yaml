@@ -11,7 +11,7 @@ schedulerservice:
   observer:
     cron: "0 * 6-20 * * *"
   tare:
-    cron: "17,47 * 6-20 * * *"
+    cron: "17 * 6-20 * * *"
   morning:
     cron: "3 0 5 * * *"
 

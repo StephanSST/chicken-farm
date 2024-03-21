@@ -82,7 +82,6 @@ public class ScaleObserver {
 					dateFormat.format(new Date()));
 			box.setBoxState(BoxState.EMPTY);
 			box.setChicken(null);
-			scaleService.tare(box.getId());
 		}
 
 	}
