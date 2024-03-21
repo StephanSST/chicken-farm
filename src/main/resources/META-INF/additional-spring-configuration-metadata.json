@@ -25,6 +25,11 @@
     "description": "Cron expression when to tare the scale"
   },
   {
+    "name": "schedulerservice.morning.cron",
+    "type": "java.lang.String",
+    "description": "Cron expression to start a new day in the morning"
+  },
+  {
     "name": "mqtt.user",
     "type": "java.lang.String",
     "description": "User id of the mqtt service"

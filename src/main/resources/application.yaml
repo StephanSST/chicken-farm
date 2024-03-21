@@ -9,9 +9,11 @@ messengerservice:
 
 schedulerservice:
   observer:
-    cron: "0 * * * * *"
+    cron: "0 * 6-20 * * *"
   tare:
-    cron: "30 0 5 * * *"
+    cron: "17,47 * 6-20 * * *"
+  morning:
+    cron: "3 0 5 * * *"
 
 mqtt:
   user: ${MQTT_USER}

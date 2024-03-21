@@ -12,6 +12,8 @@ schedulerservice:
     cron: "-"
   tare:
     cron: "-"
+  morning:
+    cron: "-"
 
 mqtt:
   user: dummy
