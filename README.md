@@ -14,6 +14,7 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 * write tests and mocks for mqtt client
 * ping message to check scale
 * endpoint to display state and messages
+* endpoint to set current weight, box-state and chicken
 
 
 ## TODO List Arduino
@@ -22,6 +23,7 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 * bugfix stati not appear on topic
 * implement calibration
 * pong message to confirm availability
+* write header with message
 
 
 
