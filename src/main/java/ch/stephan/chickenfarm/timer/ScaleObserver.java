@@ -52,21 +52,22 @@ public class ScaleObserver {
 					chicken.getDisplayName(), box.getDescription(), weight);
 			log.info(message);
 
-			if (box.getBoxState() == BoxState.EMPTY) {
+			if (box.getBoxState() != BoxState.CHICKEN_IN) {
 				String result = messengerService.sendNotification(message);
 				log.info("Message sent: {}", result);
 				box.setBoxState(BoxState.CHICKEN_IN);
 			}
 
 		} else if (weight > 50) { // egg in the box
-			String message = String.format(":nest_with_eggs: %s in der Legebox %s hat ein Ei von %sg gelegt.",
-					box.getChicken().getDisplayName(), box.getDescription(), weight);
-			log.info(message);
-
 			if (box.getBoxState() == BoxState.CHICKEN_IN) {
+				String message = String.format(":nest_with_eggs: %s in der Legebox %s hat ein Ei von %sg gelegt.",
+						box.getChicken().getDisplayName(), box.getDescription(), weight);
+				log.info(message);
+
 				String result = messengerService.sendNotification(message);
 				log.info("Message sent: {}", result);
 				box.setBoxState(BoxState.EGG_IN);
+				box.setChicken(null);
 			}
 
 		} else { // nothing special
