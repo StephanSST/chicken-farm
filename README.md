@@ -8,14 +8,13 @@ This code will run on a Raspberry PI in a chicken barn. There are scales under t
 
 ### Epic v1: Chicken scale recognizes weight change and sends message about state (which chicken, an egg) via Messenger
 
-* BUG: wenn Ei gelegt und erkannt, tare-it oder wenn nicht, die letzten Hühner in Message packen
-* correct shutdown of mqtt user
-* implement calibrate
-* write tests and mocks for mqtt client
-* ping message to check scale
-* endpoint to display state and messages
-* endpoint to set current weight, box-state and chicken
-* understand mqtt, qos, retain and create tasks to adopt
+* (1) correct shutdown of mqtt user
+* (1) understand mqtt, qos, retain and create tasks to adopt
+* (1) endpoint to display messured weights
+* (3) BUG: wenn Ei gelegt und erkannt, tare-it oder wenn nicht, die letzten Hühner in Message packen
+* (3) implement calibrate
+* (2) write tests and mocks for mqtt client
+* (2) ping message to check scale
 
 
 ## TODO List Arduino

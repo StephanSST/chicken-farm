@@ -1,5 +1,7 @@
 package ch.stephan.chickenfarm.dto;
 
+import java.util.Arrays;
+
 public enum Chicken {
 	HEIDI("Heidi", 2200), //
 	KLARA("Klara", 2850), //
@@ -20,6 +22,13 @@ public enum Chicken {
 
 	public int getWeight() {
 		return weight;
+	}
+
+	public static Chicken findByName(String name) {
+		return Arrays.asList(values()).stream()//
+				.filter(c -> c.name().equalsIgnoreCase(name))//
+				.findFirst()//
+				.orElse(null);
 	}
 
 }

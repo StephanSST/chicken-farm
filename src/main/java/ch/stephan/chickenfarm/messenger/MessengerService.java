@@ -25,7 +25,7 @@ public class MessengerService {
 
 	public String sendNotification(String message) {
 		if (!enabled) {
-			return "Messaging was disabled, not message sent.";
+			return "Messaging was disabled, no message sent.";
 		}
 
 		try {
