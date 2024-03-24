@@ -34,12 +34,18 @@ class ContinuousScaleTaringTest {
 	@Test
 	void test_WhenWeight0_tareIsCalled() {
 		setAllWeightsTo(0);
-		callAndCheckTimesCalled(2);
+		callAndCheckTimesCalled(0);
 	}
 
 	@Test
-	void test_WhenWeightMinus165_tareIsCalled() {
-		setAllWeightsTo(-165);
+	void test_WhenWeight4_tareIsCalled() {
+		setAllWeightsTo(4);
+		callAndCheckTimesCalled(0);
+	}
+
+	@Test
+	void test_WhenWeight5_tareIsCalled() {
+		setAllWeightsTo(5);
 		callAndCheckTimesCalled(2);
 	}
 
@@ -53,6 +59,24 @@ class ContinuousScaleTaringTest {
 	void test_WhenWeight65_tareIsCalled() {
 		setAllWeightsTo(65);
 		callAndCheckTimesCalled(0);
+	}
+
+	@Test
+	void test_WhenWeightMinus4_tareIsCalled() {
+		setAllWeightsTo(-4);
+		callAndCheckTimesCalled(0);
+	}
+
+	@Test
+	void test_WhenWeightMinus5_tareIsCalled() {
+		setAllWeightsTo(-5);
+		callAndCheckTimesCalled(2);
+	}
+
+	@Test
+	void test_WhenWeightMinus165_tareIsCalled() {
+		setAllWeightsTo(-165);
+		callAndCheckTimesCalled(2);
 	}
 
 	private void setAllWeightsTo(int weight) {
