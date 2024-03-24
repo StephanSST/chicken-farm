@@ -30,7 +30,7 @@ public class ContinuousScaleTaring {
 
 	private void tareIfNeeded(String id) {
 		Box box = boxService.getBox(id);
-		if (Math.abs(box.getWeight()) > 5 && Math.abs(box.getWeight()) < 50) {
+		if (box.getWeight() < 50) {
 			scaleService.tare(id);
 		} else {
 			log.info("No need to tare Scale {}, weight was {}.", id, box.getWeight());
