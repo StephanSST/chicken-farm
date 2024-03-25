@@ -6,7 +6,7 @@ public enum Chicken {
 	HEIDI("Heidi", 2200), //
 	KLARA("Klara", 2850), //
 	LILI("Lili", 2851), //
-	LULU("Lulu", 3450);
+	LULU("Lulu", 3200);
 
 	private String name;
 	private int weight;
